@@ -2,6 +2,7 @@ package org.javxtend.util;
 
 import java.util.List;
 import java.util.Objects;
+import org.javxtend.util.function.TriFunction;
 
 /**
  *
@@ -25,7 +26,7 @@ public interface Triple<T1, T2, T3> {
     T3 getThird();
 
     /**
-     * Checks if the tuple is empty, which is true if all elements are null.
+     * Checks if the triple is empty, which is true if all elements are null.
      * @return {@code true} if all elements are null, {@code false} otherwise
      */
     default boolean isEmpty() {
@@ -39,6 +40,20 @@ public interface Triple<T1, T2, T3> {
      */
     default boolean contains(Object value) {
         return Objects.equals(getFirst(), value) || Objects.equals(getSecond(), value) || Objects.equals(getThird(), value);
+    }
+
+    /**
+     * Applies a function to the elements of this triple.
+     * <p>
+     * This allows for a form of destructuring, where the elements of the triple
+     * are passed as arguments to the provided function.
+     *
+     * @param <R> the type of the result
+     * @param function the function to apply
+     * @return the result of applying the function to the triple's elements
+     */
+    default <R> R apply(TriFunction<? super T1, ? super T2, ? super T3, ? extends R> function) {
+        return function.apply(getFirst(), getSecond(), getThird());
     }
 
     List<Object> toList();

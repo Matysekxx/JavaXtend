@@ -1,19 +1,20 @@
 package org.javxtend.util;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * A mutable, general-purpose implementation of the {@link Tuple} interface.
+ * A mutable, general-purpose implementation of the {@link Pair} interface.
  * <p>
  * This class serves as a standard container for a pair of objects and is the
  * primary implementation for most use cases.
  *
  * <h3>Example of Usage:</h3>
  * <blockquote><pre>
- *     // Create a tuple to hold a user's name and age
- *     Tuple&lt;String, Integer&gt; userProfile = JXTuple.of("John Doe", 30);
+ *     // Create a pair to hold a user's name and age
+ *     Pair&lt;String, Integer&gt; userProfile = JXPair.of("John Doe", 30);
  *
  *     // Access the elements
  *     String name = userProfile.getFirst();
@@ -26,7 +27,7 @@ import java.util.function.Function;
  * @param <T1> the type of the first element
  * @param <T2> the type of the second element
  */
-public class JXTuple<T1, T2> implements Tuple<T1, T2> {
+public class JXPair<T1, T2> implements Pair<T1, T2> {
 
     private T1 first;
     private T2 second;
@@ -37,32 +38,32 @@ public class JXTuple<T1, T2> implements Tuple<T1, T2> {
      * @param first the first element
      * @param second the second element
      */
-    public JXTuple(T1 first, T2 second) {
+    public JXPair(T1 first, T2 second) {
         this.first = first;
         this.second = second;
     }
 
     /**
-     * Constructs a new tuple by copying the elements from another tuple.
+     * Constructs a new pair by copying the elements from another pair.
      *
-     * @param tuple the tuple to copy elements from
+     * @param pair the pair to copy elements from
      */
-    public JXTuple(JXTuple<T1, T2> tuple) {
-        this.first = tuple.first;
-        this.second = tuple.second;
+    public JXPair(Pair<T1, T2> pair) {
+        this.first = pair.getFirst();
+        this.second = pair.getSecond();
     }
 
     /**
-     * Static factory method to create a new {@code JXTuple} instance.
+     * Static factory method to create a new {@code JXPair} instance.
      *
      * @param first the first element
      * @param second the second element
      * @param <T1> the type of the first element
      * @param <T2> the type of the second element
-     * @return a new {@code JXTuple} containing the provided elements
+     * @return a new {@code JXPair} containing the provided elements
      */
-    public static <T1, T2> JXTuple<T1, T2> of(T1 first, T2 second) {
-        return new JXTuple<>(first, second);
+    public static <T1, T2> JXPair<T1, T2> of(T1 first, T2 second) {
+        return new JXPair<>(first, second);
     }
 
     @Override
@@ -84,12 +85,12 @@ public class JXTuple<T1, T2> implements Tuple<T1, T2> {
     }
 
     /**
-     * Swaps the elements of the tuple and returns a new tuple with the swapped elements.
+     * Swaps the elements of the pair and returns a new pair with the swapped elements.
      *
-     * @return a new {@code JXTuple} with the first and second elements swapped
+     * @return a new {@code JXPair} with the first and second elements swapped
      */
-    public JXTuple<T2, T1> swap() {
-        return new JXTuple<>(second, first);
+    public JXPair<T2, T1> swap() {
+        return new JXPair<>(second, first);
     }
 
     /**
@@ -99,10 +100,10 @@ public class JXTuple<T1, T2> implements Tuple<T1, T2> {
      * @param mapper2 a function to apply to the second element
      * @param <R1> the type of the first element of the new tuple
      * @param <R2> the type of the second element of the new tuple
-     * @return a new {@code JXTuple} with the transformed elements
+     * @return a new {@code JXPair} with the transformed elements
      */
-    public <R1, R2> JXTuple<R1, R2> map(Function<? super T1, ? extends R1> mapper1, Function<? super T2, ? extends R2> mapper2) {
-        return new JXTuple<>(mapper1.apply(first), mapper2.apply(second));
+    public <R1, R2> JXPair<R1, R2> map(Function<? super T1, ? extends R1> mapper1, Function<? super T2, ? extends R2> mapper2) {
+        return new JXPair<>(mapper1.apply(first), mapper2.apply(second));
     }
 
     /**
@@ -110,10 +111,10 @@ public class JXTuple<T1, T2> implements Tuple<T1, T2> {
      *
      * @param mapper a function to apply to the first element
      * @param <R> the new type of the first element
-     * @return a new {@code JXTuple} with the transformed first element.
+     * @return a new {@code JXPair} with the transformed first element.
      */
-    public <R> JXTuple<R, T2> mapFirst(Function<? super T1, ? extends R> mapper) {
-        return new JXTuple<>(mapper.apply(first), second);
+    public <R> JXPair<R, T2> mapFirst(Function<? super T1, ? extends R> mapper) {
+        return new JXPair<>(mapper.apply(first), second);
     }
 
     /**
@@ -121,19 +122,19 @@ public class JXTuple<T1, T2> implements Tuple<T1, T2> {
      *
      * @param mapper a function to apply to the second element
      * @param <R> the new type of the second element
-     * @return a new {@code JXTuple} with the transformed second element.
+     * @return a new {@code JXPair} with the transformed second element.
      */
-    public <R> JXTuple<T1, R> mapSecond(Function<? super T2, ? extends R> mapper) {
-        return new JXTuple<>(first, mapper.apply(second));
+    public <R> JXPair<T1, R> mapSecond(Function<? super T2, ? extends R> mapper) {
+        return new JXPair<>(first, mapper.apply(second));
     }
 
     /**
-     * Creates a new {@link ImmutableTuple} from the elements of this tuple.
+     * Creates a new {@link ImmutablePair} from the elements of this tuple.
      *
      * @return a new immutable tuple with the same elements.
      */
-    public ImmutableTuple<T1, T2> toImmutable() {
-        return new ImmutableTuple<>(first, second);
+    public ImmutablePair<T1, T2> toImmutable() {
+        return new ImmutablePair<>(first, second);
     }
 
     /**
@@ -175,7 +176,7 @@ public class JXTuple<T1, T2> implements Tuple<T1, T2> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        JXTuple<?, ?> jxTuple = (JXTuple<?, ?>) o;
+        JXPair<?, ?> jxTuple = (JXPair<?, ?>) o;
         return Objects.equals(first, jxTuple.first) && Objects.equals(second, jxTuple.second);
     }
 }

@@ -1,6 +1,6 @@
 package org.javxtend.io;
 
-import org.javxtend.util.JXTuple;
+import org.javxtend.util.JXPair;
 import org.javxtend.util.JXTriple;
 
 import java.io.PrintWriter;
@@ -62,8 +62,8 @@ public final class IO {
         return SCANNER.nexts(count);
     }
 
-    public static JXTuple<Integer, Integer> nextIntTuple() {
-        return SCANNER.nextIntTuple();
+    public static JXPair<Integer, Integer> nextIntPair() {
+        return SCANNER.nextIntPair();
     }
 
     public static JXTriple<Integer, Integer, Integer> nextIntTriple() {

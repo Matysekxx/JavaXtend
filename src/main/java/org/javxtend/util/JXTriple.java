@@ -158,10 +158,10 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        JXTriple<?, ?, ?> jxTuple3 = (JXTriple<?, ?, ?>) o;
-        return Objects.equals(first, jxTuple3.first) &&
-               Objects.equals(second, jxTuple3.second) &&
-               Objects.equals(third, jxTuple3.third);
+        JXTriple<?, ?, ?> jxTriple = (JXTriple<?, ?, ?>) o;
+        return Objects.equals(first, jxTriple.first) &&
+               Objects.equals(second, jxTriple.second) &&
+               Objects.equals(third, jxTriple.third);
     }
 
     @Override

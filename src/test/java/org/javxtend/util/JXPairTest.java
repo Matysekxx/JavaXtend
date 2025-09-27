@@ -5,20 +5,20 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JXTupleTest {
+class JXPairTest {
 
     @Test
     @DisplayName("Should create a tuple and get its elements")
     void testCreationAndGetters() {
-        Tuple<String, Integer> tuple = JXTuple.of("Test", 123);
-        assertEquals("Test", tuple.getFirst());
-        assertEquals(123, tuple.getSecond());
+        Pair<String, Integer> pair = JXPair.of("Test", 123);
+        assertEquals("Test", pair.getFirst());
+        assertEquals(123, pair.getSecond());
     }
 
     @Test
     @DisplayName("Should modify elements using setters")
     void testSetters() {
-        JXTuple<String, Integer> tuple = JXTuple.of("Initial", 1);
+        JXPair<String, Integer> tuple = JXPair.of("Initial", 1);
         tuple.setFirst("Modified");
         tuple.setSecond(2);
 
@@ -29,40 +29,40 @@ class JXTupleTest {
     @Test
     @DisplayName("Should correctly implement equals and hashCode")
     void testEqualsAndHashCode() {
-        Tuple<String, Integer> tuple1 = JXTuple.of("A", 1);
-        Tuple<String, Integer> tuple2 = JXTuple.of("A", 1);
-        Tuple<String, Integer> tuple3 = JXTuple.of("B", 2);
+        Pair<String, Integer> pair1 = JXPair.of("A", 1);
+        Pair<String, Integer> pair2 = JXPair.of("A", 1);
+        Pair<String, Integer> pair3 = JXPair.of("B", 2);
 
-        assertEquals(tuple1, tuple2);
-        assertNotEquals(tuple1, tuple3);
+        assertEquals(pair1, pair2);
+        assertNotEquals(pair1, pair3);
 
-        assertEquals(tuple1.hashCode(), tuple2.hashCode());
-        assertNotEquals(tuple1.hashCode(), tuple3.hashCode());
+        assertEquals(pair1.hashCode(), pair2.hashCode());
+        assertNotEquals(pair1.hashCode(), pair3.hashCode());
     }
 
     @Test
     @DisplayName("Should handle null values correctly")
     void testNullValues() {
-        Tuple<String, Integer> tuple = JXTuple.of(null, null);
+        Pair<String, Integer> pair = JXPair.of(null, null);
 
-        assertNull(tuple.getFirst());
-        assertNull(tuple.getSecond());
-        assertTrue(tuple.isEmpty());
-        assertTrue(tuple.contains(null));
+        assertNull(pair.getFirst());
+        assertNull(pair.getSecond());
+        assertTrue(pair.isEmpty());
+        assertTrue(pair.contains(null));
     }
 
     @Test
     @DisplayName("Should produce correct string representation")
     void testToString() {
-        Tuple<String, Integer> tuple = JXTuple.of("Hello", 2024);
-        assertEquals("(Hello, 2024)", tuple.toString());
+        Pair<String, Integer> pair = JXPair.of("Hello", 2024);
+        assertEquals("(Hello, 2024)", pair.toString());
     }
 
     @Test
     @DisplayName("Should swap elements correctly")
     void testSwap() {
-        JXTuple<String, Integer> original = JXTuple.of("One", 2);
-        JXTuple<Integer, String> swapped = original.swap();
+        JXPair<String, Integer> original = JXPair.of("One", 2);
+        JXPair<Integer, String> swapped = original.swap();
 
         assertEquals(2, swapped.getFirst());
         assertEquals("One", swapped.getSecond());
@@ -71,8 +71,8 @@ class JXTupleTest {
     @Test
     @DisplayName("Should map elements correctly")
     void testMap() {
-        JXTuple<String, Integer> original = JXTuple.of("5", 10);
-        JXTuple<Integer, String> mapped = original.map(Integer::parseInt, Object::toString);
+        JXPair<String, Integer> original = JXPair.of("5", 10);
+        JXPair<Integer, String> mapped = original.map(Integer::parseInt, Object::toString);
 
         assertEquals(5, mapped.getFirst());
         assertEquals("10", mapped.getSecond());
@@ -81,8 +81,8 @@ class JXTupleTest {
     @Test
     @DisplayName("Should map second element only")
     void testMapSecond() {
-        JXTuple<String, Integer> original = JXTuple.of("Hello", 10);
-        JXTuple<String, String> mapped = original.mapSecond(val -> "Value: " + val);
+        JXPair<String, Integer> original = JXPair.of("Hello", 10);
+        JXPair<String, String> mapped = original.mapSecond(val -> "Value: " + val);
 
         assertEquals("Hello", mapped.getFirst());
         assertEquals("Value: 10", mapped.getSecond());
@@ -91,11 +91,11 @@ class JXTupleTest {
     @Test
     @DisplayName("Should convert to an immutable tuple")
     void testToImmutable() {
-        Tuple<String, Integer> mutable = JXTuple.of("A", 1);
-        ImmutableTuple<String, Integer> immutable = ((JXTuple<String, Integer>) mutable).toImmutable();
+        Pair<String, Integer> mutable = JXPair.of("A", 1);
+        ImmutablePair<String, Integer> immutable = ((JXPair<String, Integer>) mutable).toImmutable();
 
         assertEquals(mutable.getFirst(), immutable.getFirst());
         assertEquals(mutable.getSecond(), immutable.getSecond());
-        assertInstanceOf(ImmutableTuple.class, immutable);
+        assertInstanceOf(ImmutablePair.class, immutable);
     }
 }

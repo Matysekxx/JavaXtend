@@ -5,7 +5,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import org.javxtend.util.JXTuple;
+import org.javxtend.util.JXPair;
 import org.javxtend.util.JXTriple;
 
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ import java.util.NoSuchElementException;
  * <blockquote><pre>
  *     // Read from a string for testing
  *     String input = "10 20\nhello world";
- *     try (JXScanner scanner = new JXScanner(new ByteArrayInputStream(input.getBytes()))) {
- *         // Read a tuple of two integers
- *         JXTuple&lt;Integer, Integer&gt; point = scanner.nextIntTuple(); // (10, 20)
+ *     try (JXScanner scanner = new JXScanner(new ByteArrayInputStream(input.getBytes()))) { //NOSONAR
+ *         // Read a pair of two integers
+ *         JXPair&lt;Integer, Integer&gt; point = scanner.nextIntPair(); // (10, 20)
  *
  *         // Read the next line
  *         String line = scanner.nextLine(); // "hello world"
@@ -231,19 +231,19 @@ public class JXScanner implements Closeable {
     }
 
     /**
-     * Reads the next two tokens and returns them as a mutable {@link JXTuple}.
-     * @return a {@code JXTuple} containing the next two strings.
+     * Reads the next two tokens and returns them as a mutable {@link JXPair}.
+     * @return a {@code JXPair} containing the next two strings.
      */
-    public JXTuple<String, String> nextTuple() {
-        return JXTuple.of(next(), next());
+    public JXPair<String, String> nextPair() {
+        return JXPair.of(next(), next());
     }
 
     /**
-     * Reads the next two tokens as integers and returns them as a mutable {@link JXTuple}.
-     * @return a {@code JXTuple} containing the next two integers.
+     * Reads the next two tokens as integers and returns them as a mutable {@link JXPair}.
+     * @return a {@code JXPair} containing the next two integers.
      */
-    public JXTuple<Integer, Integer> nextIntTuple() {
-        return JXTuple.of(nextInt(), nextInt());
+    public JXPair<Integer, Integer> nextIntPair() {
+        return JXPair.of(nextInt(), nextInt());
     }
 
     /**
