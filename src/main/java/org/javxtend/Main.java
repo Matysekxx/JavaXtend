@@ -1,13 +1,12 @@
 package org.javxtend;
 
-import org.javxtend.io.IO;
-import org.javxtend.util.ImmutableTriple;
+import org.javxtend.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        IO.println("Please enter a number, a word, and then the rest of the line:");
-        int number = IO.nextInt();
-        String word = IO.next();
-        String line = IO.nextLine();
+        var data = JXTriple.of("Zdenek", 29, true);
+        var dataList = data.toList();
+        System.out.println(dataList);
+
     }
 }

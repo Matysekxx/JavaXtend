@@ -1,5 +1,6 @@
 package org.javxtend.io;
 
+import org.javxtend.console.ConsoleColors;
 import org.javxtend.util.JXPair;
 import org.javxtend.util.JXTriple;
 
@@ -26,12 +27,20 @@ public final class IO {
         WRITER.print(obj);
     }
 
+    public static void printERR(Object obj) {
+        WRITER.print(ConsoleColors.RED.colorize(obj.toString()));
+    }
+
     public static void println(Object obj) {
         WRITER.println(obj);
     }
 
     public static void println() {
         WRITER.println();
+    }
+
+    public static void printlnERR(Object obj) {
+        WRITER.println(ConsoleColors.RED.colorize(obj.toString()));
     }
 
     public static String next() {
