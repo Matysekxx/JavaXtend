@@ -1,6 +1,7 @@
 package org.javxtend.util;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Defines a contract for a pair of elements, commonly known as a 2-tuple.
@@ -28,8 +29,15 @@ public interface Tuple<T1, T2> {
         return getFirst() == null && getSecond() == null;
     }
     
-    boolean contains(Object value);
-    
+    /**
+     * Checks if the tuple contains the specified value in either of its elements.
+     * @param value the value to check for
+     * @return {@code true} if the value is found, {@code false} otherwise
+     */
+    default boolean contains(Object value) {
+        return Objects.equals(getFirst(), value) || Objects.equals(getSecond(), value);
+    }
+
     Object[] toArray();
     
     List<Object> toList();

@@ -1,8 +1,10 @@
 package org.javxtend.util;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
+ *
  * Defines a contract for a group of three elements, commonly known as a 3-tuple or a triple.
  * <p>
  * This serves as a generic container for three objects, which may be of different types.
@@ -11,10 +13,10 @@ import java.util.List;
  * @param <T2> the type of the second element
  * @param <T3> the type of the third element
  *
- * @see JXTuple3
- * @see ImmutableTuple3
+ * @see JXTriple
+ * @see ImmutableTriple
  */
-public interface Tuple3<T1, T2, T3> {
+public interface Triple<T1, T2, T3> {
 
     T1 getFirst();
 
@@ -30,5 +32,16 @@ public interface Tuple3<T1, T2, T3> {
         return getFirst() == null && getSecond() == null && getThird() == null;
     }
 
+    /**
+     * Checks if the triple contains the specified value in any of its elements.
+     * @param value the value to check for
+     * @return {@code true} if the value is found, {@code false} otherwise
+     */
+    default boolean contains(Object value) {
+        return Objects.equals(getFirst(), value) || Objects.equals(getSecond(), value) || Objects.equals(getThird(), value);
+    }
+
     List<Object> toList();
+
+    Object[] toArray();
 }

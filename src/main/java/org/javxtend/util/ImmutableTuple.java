@@ -15,10 +15,6 @@ import java.util.function.Function;
  * <blockquote><pre>
  *     // Create an immutable tuple
  *     Tuple&lt;String, Integer&gt; config = ImmutableTuple.of("timeout", 5000);
- * 
- *     // Attempting to modify it would result in a compilation error,
- *     // as the Tuple interface does not define setter methods.
- *     // config.setFirst("newKey"); // This line won't compile
  * </pre></blockquote>
  *
  * @param <T1> the type of the first element
@@ -61,11 +57,6 @@ public final class ImmutableTuple<T1, T2> implements Tuple<T1, T2> {
     @Override
     public T2 getSecond() {
         return second;
-    }
-
-    @Override
-    public boolean contains(Object value) {
-        return Objects.equals(first, value) || Objects.equals(second, value);
     }
 
     /**

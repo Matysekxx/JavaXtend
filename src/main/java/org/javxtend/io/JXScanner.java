@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import org.javxtend.util.JXTuple;
-import org.javxtend.util.JXTuple3;
+import org.javxtend.util.JXTriple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -173,8 +173,6 @@ public class JXScanner implements Closeable {
     public char nextChar() {
         return next().charAt(0);
     }
-
-    // --- Unique JXScanner features ---
     
     /**
      * Reads the next {@code count} tokens as integers and returns them as an array.
@@ -186,6 +184,34 @@ public class JXScanner implements Closeable {
         int[] array = new int[count];
         for (int i = 0; i < count; i++) {
             array[i] = nextInt();
+        }
+        return array;
+    }
+
+    /**
+     * Reads the next {@code count} tokens as longs and returns them as an array.
+     * @param count the number of longs to read.
+     * @return an array of longs.
+     * @throws NoSuchElementException if there are not enough tokens.
+     */
+    public long[] nextLongs(int count) {
+        long[] array = new long[count];
+        for (int i = 0; i < count; i++) {
+            array[i] = nextLong();
+        }
+        return array;
+    }
+
+    /**
+     * Reads the next {@code count} tokens as doubles and returns them as an array.
+     * @param count the number of doubles to read.
+     * @return an array of doubles.
+     * @throws NoSuchElementException if there are not enough tokens.
+     */
+    public double[] nextDoubles(int count) {
+        double[] array = new double[count];
+        for (int i = 0; i < count; i++) {
+            array[i] = nextDouble();
         }
         return array;
     }
@@ -221,19 +247,19 @@ public class JXScanner implements Closeable {
     }
 
     /**
-     * Reads the next three tokens and returns them as a mutable {@link JXTuple3}.
-     * @return a {@code JXTuple3} containing the next three strings.
+     * Reads the next three tokens and returns them as a mutable {@link JXTriple}.
+     * @return a {@code JXTriple} containing the next three strings.
      */
-    public JXTuple3<String, String, String> nextTuple3() {
-        return JXTuple3.of(next(), next(), next());
+    public JXTriple<String, String, String> nextTriple() {
+        return JXTriple.of(next(), next(), next());
     }
 
     /**
-     * Reads the next three tokens as integers and returns them as a mutable {@link JXTuple3}.
-     * @return a {@code JXTuple3} containing the next three integers.
+     * Reads the next three tokens as integers and returns them as a mutable {@link JXTriple}.
+     * @return a {@code JXTriple} containing the next three integers.
      */
-    public JXTuple3<Integer, Integer, Integer> nextIntTuple3() {
-        return JXTuple3.of(nextInt(), nextInt(), nextInt());
+    public JXTriple<Integer, Integer, Integer> nextIntTriple() {
+        return JXTriple.of(nextInt(), nextInt(), nextInt());
     }
 
     /**

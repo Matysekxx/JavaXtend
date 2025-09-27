@@ -1,7 +1,7 @@
 package org.javxtend.io;
 
 import org.javxtend.util.JXTuple;
-import org.javxtend.util.JXTuple3;
+import org.javxtend.util.JXTriple;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -66,8 +66,8 @@ public final class IO {
         return SCANNER.nextIntTuple();
     }
 
-    public static JXTuple3<Integer, Integer, Integer> nextIntTuple3() {
-        return SCANNER.nextIntTuple3();
+    public static JXTriple<Integer, Integer, Integer> nextIntTriple() {
+        return SCANNER.nextIntTriple();
     }
 
     public static boolean hasNext() {

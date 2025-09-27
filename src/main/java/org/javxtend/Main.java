@@ -1,6 +1,7 @@
 package org.javxtend;
 
 import org.javxtend.io.IO;
+import org.javxtend.util.ImmutableTriple;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,9 +9,5 @@ public class Main {
         int number = IO.nextInt();
         String word = IO.next();
         String line = IO.nextLine();
-        
-        IO.println("Number: " + number);
-        IO.println("Word: " + word);
-        IO.println("Line: " + line);
     }
 }

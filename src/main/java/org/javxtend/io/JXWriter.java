@@ -90,6 +90,110 @@ public class JXWriter implements Closeable, Flushable {
         println();
     }
 
+    /**
+     * Prints the elements of an array to the output stream, separated by a delimiter.
+     *
+     * @param array The array to print.
+     * @param delimiter The delimiter to place between elements.
+     */
+    public void printArray(Object[] array, CharSequence delimiter) {
+        StringJoiner joiner = new StringJoiner(delimiter);
+        for (Object item : array) {
+            joiner.add(String.valueOf(item));
+        }
+        print(joiner.toString());
+    }
+
+    /**
+     * Prints the elements of an array to the output stream, separated by a delimiter,
+     * and then terminates the line.
+     *
+     * @param array The array to print.
+     * @param delimiter The delimiter to place between elements.
+     */
+    public void printlnArray(Object[] array, CharSequence delimiter) {
+        printArray(array, delimiter);
+        println();
+    }
+
+    /**
+     * Prints the elements of an int array to the output stream, separated by a delimiter.
+     *
+     * @param array The array to print.
+     * @param delimiter The delimiter to place between elements.
+     */
+    public void printArray(int[] array, CharSequence delimiter) {
+        StringJoiner joiner = new StringJoiner(delimiter);
+        for (int item : array) {
+            joiner.add(String.valueOf(item));
+        }
+        print(joiner.toString());
+    }
+
+    /**
+     * Prints the elements of an int array to the output stream, separated by a delimiter,
+     * and then terminates the line.
+     *
+     * @param array The array to print.
+     * @param delimiter The delimiter to place between elements.
+     */
+    public void printlnArray(int[] array, CharSequence delimiter) {
+        printArray(array, delimiter);
+        println();
+    }
+
+    /**
+     * Prints the elements of a long array to the output stream, separated by a delimiter.
+     *
+     * @param array The array to print.
+     * @param delimiter The delimiter to place between elements.
+     */
+    public void printArray(long[] array, CharSequence delimiter) {
+        StringJoiner joiner = new StringJoiner(delimiter);
+        for (long item : array) {
+            joiner.add(String.valueOf(item));
+        }
+        print(joiner.toString());
+    }
+
+    /**
+     * Prints the elements of a long array to the output stream, separated by a delimiter,
+     * and then terminates the line.
+     *
+     * @param array The array to print.
+     * @param delimiter The delimiter to place between elements.
+     */
+    public void printlnArray(long[] array, CharSequence delimiter) {
+        printArray(array, delimiter);
+        println();
+    }
+
+    /**
+     * Prints the elements of a double array to the output stream, separated by a delimiter.
+     *
+     * @param array The array to print.
+     * @param delimiter The delimiter to place between elements.
+     */
+    public void printArray(double[] array, CharSequence delimiter) {
+        StringJoiner joiner = new StringJoiner(delimiter);
+        for (double item : array) {
+            joiner.add(String.valueOf(item));
+        }
+        print(joiner.toString());
+    }
+
+    /**
+     * Prints the elements of a double array to the output stream, separated by a delimiter,
+     * and then terminates the line.
+     *
+     * @param array The array to print.
+     * @param delimiter The delimiter to place between elements.
+     */
+    public void printlnArray(double[] array, CharSequence delimiter) {
+        printArray(array, delimiter);
+        println();
+    }
+
     @Override
     public void flush() {
         writer.flush();

@@ -1,7 +1,7 @@
 package org.javxtend.io;
 
 import org.javxtend.util.JXTuple;
-import org.javxtend.util.JXTuple3;
+import org.javxtend.util.JXTriple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -62,8 +62,8 @@ class JXScannerTest {
             JXTuple<Integer, Integer> pair = scanner.nextIntTuple();
             assertEquals(JXTuple.of(1, 2), pair);
 
-            JXTuple3<Integer, Integer, Integer> triple = scanner.nextIntTuple3();
-            assertEquals(JXTuple3.of(10, 20, 30), triple);
+            JXTriple<Integer, Integer, Integer> triple = scanner.nextIntTriple();
+            assertEquals(JXTriple.of(10, 20, 30), triple);
         } catch (IOException e) {
             fail(e);
         }

@@ -136,22 +136,6 @@ public class JXTuple<T1, T2> implements Tuple<T1, T2> {
         return new ImmutableTuple<>(first, second);
     }
 
-    
-    /**
-     * Checks if the tuple contains the specified value in either of its elements.
-     * Comparison is done using the {@code equals} method.
-     *
-     * @param value the value to check for
-     * @return {@code true} if the value is found, {@code false} otherwise
-     */
-    @Override
-    public boolean contains(Object value) {
-        if (value == null) {
-            return first == null || second == null;
-        }
-        return value.equals(first) || value.equals(second);
-    }
-
     /**
      * Returns an array containing the elements of this tuple.
      *
