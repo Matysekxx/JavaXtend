@@ -47,10 +47,25 @@ public class ConsoleSpinner {
          */
         public char[] getFrames() { return frames.clone(); }
     }
+    /**
+     * The message displayed next to the spinner.
+     */
     private final String message;
+    /**
+     * The character frames for the spinner animation.
+     */
     private final char[] frames;
+    /**
+     * A volatile flag to control the spinning state of the animation thread.
+     */
     private volatile boolean spinning = false;
+    /**
+     * The thread that runs the spinner animation.
+     */
     private Thread thread;
+    /**
+     * The delay in milliseconds between animation frames.
+     */
     private int interval = 100;
 
     /**

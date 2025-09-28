@@ -41,9 +41,17 @@ import java.util.NoSuchElementException;
  */
 public class JXScanner implements Closeable {
 
+    /** The underlying reader for the input stream. */
     private final BufferedReader reader;
+    /** A buffer to hold tokens from the current line. */
     private String[] buffer;
+    /** A pointer to the current token in the buffer. */
     private int pointer;
+    /**
+     * A flag indicating that the end of the input stream has been reached
+     * and no more tokens are available. This helps to avoid unnecessary
+     * read attempts on a closed or exhausted stream.
+     */
     private boolean inputExhausted = false;
 
     /**

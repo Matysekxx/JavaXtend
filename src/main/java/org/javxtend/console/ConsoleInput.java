@@ -42,6 +42,13 @@ public class ConsoleInput {
         }
     }
 
+    /**
+     * Reads an integer from the console after displaying a prompt.
+     * <p>
+     * It will continue to prompt the user until a valid integer is entered.
+     * @param prompt The message to display to the user.
+     * @return The integer entered by the user.
+     */
     public static int readInt(String prompt) {
         while (true) {
             IO.print(prompt);
@@ -54,6 +61,15 @@ public class ConsoleInput {
         }
     }
 
+    /**
+     * Reads an integer within a specified range from the console.
+     * <p>
+     * It will continue to prompt the user until a valid integer within the range [min, max] is entered.
+     * @param prompt The message to display to the user.
+     * @param min The minimum acceptable value (inclusive).
+     * @param max The maximum acceptable value (inclusive).
+     * @return The valid integer entered by the user.
+     */
     public static int readInt(String prompt, int min, int max) {
         while (true) {
             int value = readInt(prompt);
@@ -64,6 +80,13 @@ public class ConsoleInput {
         }
     }
 
+    /**
+     * Reads a double from the console after displaying a prompt.
+     * <p>
+     * It will continue to prompt the user until a valid double is entered.
+     * @param prompt The message to display to the user.
+     * @return The double entered by the user.
+     */
     public static double readDouble(String prompt) {
         while (true) {
             IO.print(prompt);
@@ -76,6 +99,14 @@ public class ConsoleInput {
         }
     }
 
+    /**
+     * Reads a double and validates it using a predicate.
+     * <p>
+     * It will continue to prompt the user until a valid double is entered.
+     * @param prompt The message to display to the user.
+     * @param validator A predicate to test the validity of the input.
+     * @return The valid double entered by the user.
+     */
     public static double readDouble(String prompt, Predicate<Double> validator) {
         while (true) {
             double value = readDouble(prompt);
@@ -86,10 +117,27 @@ public class ConsoleInput {
         }
     }
 
+    /**
+     * Prompts the user for a "yes" or "no" answer.
+     * <p>
+     * This method is case-insensitive and accepts "y", "yes", "n", or "no".
+     * The default value if the user just presses Enter is 'no'.
+     * @param prompt The question to ask the user.
+     * @return {@code true} for "yes", {@code false} for "no".
+     */
     public static boolean readYesNo(String prompt) {
         return readYesNo(prompt, false);
     }
 
+    /**
+     * Prompts the user for a "yes" or "no" answer, with a specified default value.
+     * <p>
+     * This method is case-insensitive and accepts "y", "yes", "n", or "no".
+     * If the user just presses Enter, the {@code defaultValue} is returned.
+     * @param prompt The question to ask the user.
+     * @param defaultValue The value to return if the user provides empty input.
+     * @return {@code true} for "yes", {@code false} for "no".
+     */
     public static boolean readYesNo(String prompt, boolean defaultValue) {
         while (true) {
             String hint = defaultValue ? " [Y/n]" : " [y/N]";

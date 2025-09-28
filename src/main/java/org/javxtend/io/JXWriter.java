@@ -23,6 +23,9 @@ import java.util.StringJoiner;
  */
 public class JXWriter implements Closeable, Flushable {
 
+    /**
+     * The underlying PrintWriter used for all write operations.
+     */
     private final PrintWriter writer;
 
     /**
@@ -43,6 +46,12 @@ public class JXWriter implements Closeable, Flushable {
         this.writer = new PrintWriter(System.out, true);
     }
 
+    /**
+     * Creates a new JXWriter from an existing PrintStream with a specified auto-flush setting.
+     *
+     * @param out A print stream
+     * @param b   A boolean indicating whether to enable auto-flushing
+     */
     public JXWriter(PrintStream out, boolean b) {
         this.writer = new PrintWriter(out, b);
     }

@@ -21,8 +21,18 @@ import java.util.List;
  */
 public final class IO {
 
+    /** The shared scanner instance for reading from the configured input stream. */
     private static JXScanner SCANNER = new JXScanner(System.in);
+    /** The shared writer instance for writing to the configured output stream. */
     private static JXWriter WRITER = new JXWriter(System.out, true);
+
+    /**
+     * Private constructor to prevent instantiation of this utility class.
+     * <p>
+     * The methods in this class are static and operate on shared {@code JXScanner}
+     * and {@code JXWriter} instances.
+     * </p>
+     */
     private IO() {}
 
     public static void initialize(InputStream in, OutputStream out) {
