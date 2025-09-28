@@ -32,7 +32,7 @@ public class JXWriter implements Closeable, Flushable {
      * @param out An output stream
      */
     public JXWriter(OutputStream out) {
-        this.writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(out)));
+        this.writer = new PrintWriter(out, true);
     }
 
     /**

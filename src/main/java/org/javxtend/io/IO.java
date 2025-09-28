@@ -4,6 +4,8 @@ import org.javxtend.console.ConsoleColors;
 import org.javxtend.util.JXPair;
 import org.javxtend.util.JXTriple;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -19,9 +21,14 @@ import java.util.List;
  */
 public final class IO {
 
-    private static final JXScanner SCANNER = new JXScanner(System.in);
-    private static final JXWriter WRITER = new JXWriter(System.out, true);
+    private static JXScanner SCANNER = new JXScanner(System.in);
+    private static JXWriter WRITER = new JXWriter(System.out, true);
     private IO() {}
+
+    public static void initialize(InputStream in, OutputStream out) {
+        SCANNER = new JXScanner(in);
+        WRITER = new JXWriter(out);
+    }
 
     public static void print(Object obj) {
         WRITER.print(obj);
