@@ -31,6 +31,17 @@ public final class IO {
         WRITER.print(ConsoleColors.RED.colorize(obj.toString()));
     }
 
+    /**
+     * Prints an object to the console and ensures it is immediately visible.
+     * <p>
+     * This is intended for interactive output like spinners or progress bars that
+     * update on a single line. It automatically flushes the output stream.
+     * @param obj The object to be printed.
+     */
+    public static void printLive(Object obj) {
+        WRITER.printAndFlush(obj);
+    }
+
     public static void println(Object obj) {
         WRITER.println(obj);
     }
@@ -41,6 +52,10 @@ public final class IO {
 
     public static void printlnERR(Object obj) {
         WRITER.println(ConsoleColors.RED.colorize(obj.toString()));
+    }
+
+    public static void flush() {
+        WRITER.flush();
     }
 
     public static String next() {

@@ -51,6 +51,18 @@ public class JXWriter implements Closeable, Flushable {
         writer.print(obj);
     }
 
+    /**
+     * Prints an object and then immediately flushes the stream.
+     * <p>
+     * This method is useful for interactive console applications (e.g., progress bars, spinners)
+     * where immediate feedback is required without printing a new line.
+     * @param obj The {@code Object} to be printed.
+     */
+    public void printAndFlush(Object obj) {
+        writer.print(obj);
+        writer.flush();
+    }
+
     public void println(Object obj) {
         writer.println(obj);
     }
