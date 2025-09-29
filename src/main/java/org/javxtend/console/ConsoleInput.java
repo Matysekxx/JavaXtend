@@ -19,7 +19,7 @@ public class ConsoleInput {
      * @return The string entered by the user.
      */
     public static String readString(String prompt) {
-        IO.print(prompt);
+        IO.println(prompt);
         return IO.nextLine();
     }
 
@@ -33,7 +33,7 @@ public class ConsoleInput {
      */
     public static String readString(String prompt, Predicate<String> validator) {
         while (true) {
-            IO.print(prompt);
+            IO.println(prompt);
             String input = IO.nextLine();
             if (validator.test(input)) {
                 return input;
@@ -51,7 +51,7 @@ public class ConsoleInput {
      */
     public static int readInt(String prompt) {
         while (true) {
-            IO.print(prompt);
+            IO.println(prompt);
             String input = IO.nextLine();
             try {
                 return Integer.parseInt(input.trim());
@@ -141,7 +141,7 @@ public class ConsoleInput {
     public static boolean readYesNo(String prompt, boolean defaultValue) {
         while (true) {
             String hint = defaultValue ? " [Y/n]" : " [y/N]";
-            IO.print(prompt + hint + " ");
+            IO.println(prompt + hint + " ");
             String input = IO.nextLine().trim().toLowerCase();
 
             switch (input) {
