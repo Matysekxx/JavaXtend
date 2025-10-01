@@ -1,16 +1,39 @@
 package org.javaxtend.functional;
 
-public class Result {
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
+/**
+ * A sealed, generic class representing the result of an operation that can either succeed (`Success`)
+ * or fail (`Error`).
+ * It is a type-safe alternative to returning null or throwing exceptions for expected failures.
+ *
+ * <h3>Example of Usage:</h3>
+ * <blockquote><pre>
+ * public Result divide(double a, double b) {
+ *     if (b == 0) {
+ *         return Result.error("Cannot divide by zero.");
+ *     }
+ *     return Result.success(a / b);
+ * }
+ *
+ * Result<Double, String> result = divide(10, 0);
+ * result
+ *     .ifSuccess(value -> System.out.println("Result is: " + value))
+ *     .ifError(error -> System.err.println("Error occurred: " + error));
+ * </pre></blockquote>
+ */
+public sealed abstract class Result<T, E> {
     private Result() {
-        throw new UnsupportedOperationException("Result is a utility class and cannot be instantiated.");
     }
 
     /**
      * Represents a successful outcome, encapsulating a value of type {@code T}.
      *
-     * @param <T> The type of the success value.
+     * @param <T> The type of the success value (unused in Error).
+     * @param <E> The type of the error.
      */
-    public static final class Success<T> extends Result {
+    public static final class Success<T, E> extends Result<T, E> {
         private final T value;
 
         /**
@@ -18,7 +41,7 @@ public class Result {
          *
          * @param value The successful result.
          */
-        public Success(T value) {
+        private Success(T value) {
             this.value = value;
         }
 
@@ -40,9 +63,10 @@ public class Result {
     /**
      * Represents a failed outcome, encapsulating an error of type {@code E}.
      *
-     * @param <E> The type of the error.
+     * @param <T> The type of the success value (unused in Error).
+     * @param <E> The type of the error value.
      */
-    public static final class Error<E> extends Result {
+    public static final class Error<T, E> extends Result<T, E> {
         private final E error;
 
         /**
@@ -50,7 +74,7 @@ public class Result {
          *
          * @param error The error object.
          */
-        public Error(E error) {
+        private Error(E error) {
             this.error = error;
         }
 
@@ -73,10 +97,126 @@ public class Result {
      * Creates a {@code Success} result with the given value.
      *
      * @param value The value to encapsulate.
-     * @param <T> The type of the value.
+     * @param <T> The type of the success value.
+     * @param <E> The type of the error value.
      * @return A new {@code Success} instance.
      */
-    public static <T> Success<T> success(T value) {
+    public static <T, E> Result<T, E> success(T value) {
         return new Success<>(value);
+    }
+
+    /**
+     * Creates an {@code Error} result with the given error object.
+     *
+     * @param error The error object to encapsulate.
+     * @param <T> The type of the success value.
+     * @param <E> The type of the error value.
+     * @return A new {@code Error} instance.
+     */
+    public static <T, E> Result<T, E> error(E error) {
+        return new Error<>(error);
+    }
+
+    /**
+     * Executes the given action if this result is a {@code Success}.
+     *
+     * @param action The action to execute, which consumes the success value.
+     * @return The current {@code Result} instance, allowing for method chaining.
+     */
+    public final Result<T, E> ifSuccess(Consumer<? super T> action) {
+        if (this instanceof Success<T, E> s) {
+            action.accept(s.getValue());
+        }
+        return this;
+    }
+
+    /**
+     * Executes the given action if this result is an {@code Error}.
+     *
+     * @param action The action to execute, which consumes the error value.
+     * @return The current {@code Result} instance, allowing for method chaining.
+     */
+    public final Result<T, E> ifError(Consumer<? super E> action) {
+        if (this instanceof Error<T, E> e) {
+            action.accept(e.getError());
+        }
+        return this;
+    }
+
+
+    /**
+     * Returns the success value or the provided default value if the result is an {@code Error}.
+     *
+     * @param defaultValue The value to return if this is an {@code Error}.
+     * @return The success value or the default value.
+     */
+    public T orElse(T defaultValue) {
+        if (this instanceof Result.Success<T,E> s) {
+            return s.getValue();
+        }
+        return defaultValue;
+    }
+
+
+    /**
+     * Returns the success value or computes it from the given supplier if the result is an {@code Error}.
+     *
+     * @param supplier A {@code Supplier} whose result is returned if this is an {@code Error}.
+     * @return The success value or the value from the supplier.
+     */
+    public T orElseGet(Supplier<? extends T> supplier) {
+        if (this instanceof Result.Success<T,E> s) return s.getValue();
+        return supplier.get();
+    }
+
+
+    /**
+     * Returns the contained {@code Success} value.
+     * Throws a {@code RuntimeException} if the result is an {@code Error}.
+     *
+     * @return The encapsulated value if this result is a {@code Success}.
+     * @throws RuntimeException if this result is an {@code Error}.
+     */
+    public T unwrap() {
+        if (this instanceof Result.Success<T,E> s) {
+            return s.getValue();
+        }
+        throw new RuntimeException(
+                "Called unwrap() on an Error value: "
+                        + ((Error<T, E>) this).getError()
+        );
+    }
+
+    /**
+     * Returns {@code true} if this result is a {@code Success}.
+     *
+     * @return {@code true} if this is a {@code Success}, {@code false} otherwise.
+     */
+    public final boolean isSuccess() {
+        return this instanceof Success;
+    }
+
+    /**
+     * Returns {@code true} if this result is an {@code Error}.
+     *
+     * @return {@code true} if this is an {@code Error}, {@code false} otherwise.
+     */
+    public final boolean isError() {
+        return this instanceof Error;
+    }
+
+    /**
+     * Returns the contained {@code Success} value or throws an exception created by the provided supplier.
+     *
+     * @param exceptionSupplier The supplier which will return the exception to be thrown.
+     * @param <X> The type of the exception to be thrown.
+     * @return The encapsulated value if this result is a {@code Success}.
+     * @throws X if this result is an {@code Error}.
+     */
+    public <X extends Throwable> T unwrapOrThrow(Supplier<? extends X> exceptionSupplier) throws X {
+        if (this instanceof Success<T, E> s) {
+            return s.getValue();
+        }
+        throw exceptionSupplier.get();
     }
 }

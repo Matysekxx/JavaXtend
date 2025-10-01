@@ -81,6 +81,14 @@ public class JXScanner implements Closeable {
      * @throws NoSuchElementException if no line was found.
      */
     public String nextLine() {
+        if (pointer < buffer.length) {
+            final StringBuilder restOfLine = new StringBuilder();
+            for (int i = pointer; i < buffer.length; i++) {
+                restOfLine.append(buffer[i]).append(" ");
+            }
+            reset();
+            return restOfLine.toString().trim();
+        }
         reset();
         return readLineFromStream();
     }
