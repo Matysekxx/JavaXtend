@@ -64,8 +64,8 @@ public final class ImmutablePair<T1, T2> implements Pair<T1, T2> {
      *
      * @return a new {@code ImmutablePair} with the first and second elements swapped.
      */
-    public <T2, T1> ImmutablePair<T2, T1> swap() {
-        return new ImmutablePair<>((T2) second, (T1) first);
+    public ImmutablePair<T2, T1> swap() {
+        return new ImmutablePair<>(second, first);
     }
 
     /**

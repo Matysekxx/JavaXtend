@@ -1,6 +1,8 @@
 package org.javaxtend.functional;
 
+import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -10,7 +12,7 @@ import java.util.function.Supplier;
  *
  * <h3>Example of Usage:</h3>
  * <blockquote><pre>
- * public Result divide(double a, double b) {
+ * public Result<Double, String> divide(double a, double b) {
  *     if (b == 0) {
  *         return Result.error("Cannot divide by zero.");
  *     }
@@ -58,6 +60,11 @@ public sealed abstract class Result<T, E> {
         public String toString() {
             return "Success(" + value + ")";
         }
+
+        @Override
+        public <R> Result<R, E> flatMap(Function<? super T, ? extends Result<R, E>> mapper) {
+            return Objects.requireNonNull(mapper.apply(getValue()));
+        }
     }
 
     /**
@@ -90,6 +97,11 @@ public sealed abstract class Result<T, E> {
         @Override
         public String toString() {
             return "Error(" + error + ")";
+        }
+
+        @Override
+        public <R> Result<R, E> flatMap(Function<? super T, ? extends Result<R, E>> mapper) {
+            return Result.error(this.error);
         }
     }
 
@@ -219,4 +231,16 @@ public sealed abstract class Result<T, E> {
         }
         throw exceptionSupplier.get();
     }
+
+    /**
+     * If the result is a {@code Success}, applies the provided {@code Result}-bearing
+     * mapping function to its value, otherwise returns the original {@code Error}.
+     * This method is useful for chaining operations that may each fail.
+     *
+     * @param mapper A function to apply to the success value.
+     * @param <R> The success type of the value returned by the mapping function.
+     * @return A new {@code Result} with the transformed value.
+     */
+    public abstract <R> Result<R, E> flatMap(Function<? super T, ? extends Result<R, E>> mapper);
+
 }
