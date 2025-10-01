@@ -100,4 +100,35 @@ class MaybeTest {
         Maybe<Integer> result = Maybe.<String>nothing().flatMap(s -> Maybe.just(s.length()));
         assertTrue(result.isNothing());
     }
+
+    @Test
+    void filter_returnsJustWhenPredicateMatches() {
+        Maybe<String> maybe = Maybe.just("long string").filter(s -> s.length() > 5);
+        assertTrue(maybe.isJust());
+        assertEquals("long string", maybe.unwrap());
+    }
+
+    @Test
+    void filter_returnsNothingWhenPredicateFails() {
+        Maybe<String> maybe = Maybe.just("short").filter(s -> s.length() > 5);
+        assertTrue(maybe.isNothing());
+    }
+
+    @Test
+    void filter_returnsNothingOnNothing() {
+        Maybe<String> maybe = Maybe.<String>nothing().filter(s -> s.length() > 5);
+        assertTrue(maybe.isNothing());
+    }
+
+    @Test
+    void orElseGet_returnsValueOnJust() {
+        String result = Maybe.just("value").orElseGet(() -> "default");
+        assertEquals("value", result);
+    }
+
+    @Test
+    void orElseGet_returnsComputedValueOnNothing() {
+        String result = Maybe.<String>nothing().orElseGet(() -> "computed default");
+        assertEquals("computed default", result);
+    }
 }

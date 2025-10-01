@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -59,6 +60,11 @@ public sealed abstract class Maybe<T> {
         public <R> Maybe<R> flatMap(Function<? super T, ? extends Maybe<R>> mapper) {
             return Objects.requireNonNull(mapper.apply(value));
         }
+
+        @Override
+        public Maybe<T> filter(Predicate<? super T> predicate) {
+            return predicate.test(value) ? this : Maybe.nothing();
+        }
     }
 
     /**
@@ -74,6 +80,11 @@ public sealed abstract class Maybe<T> {
 
         @Override
         public <R> Maybe<R> flatMap(Function<? super T, ? extends Maybe<R>> mapper) {
+            return Maybe.nothing();
+        }
+
+        @Override
+        public Maybe<T> filter(Predicate<? super T> predicate) {
             return Maybe.nothing();
         }
     }
@@ -151,6 +162,19 @@ public sealed abstract class Maybe<T> {
     }
 
     /**
+     * Returns the value if present, otherwise returns the result produced by the supplying function.
+     *
+     * @param supplier The supplying function that produces a value to be returned.
+     * @return The value, if present, otherwise the result of the supplying function.
+     */
+    public T orElseGet(Supplier<? extends T> supplier) {
+        if (this instanceof Just<T> s) {
+            return s.getValue();
+        }
+        return supplier.get();
+    }
+
+    /**
      * Returns the value if present, otherwise throws an exception.
      *
      * @return The non-null value described by this {@code Maybe}.
@@ -189,4 +213,16 @@ public sealed abstract class Maybe<T> {
      *         otherwise an empty {@code Maybe}.
      */
     public abstract <R> Maybe<R> flatMap(Function<? super T, ? extends Maybe<R>> mapper);
+
+    /**
+     * If a value is present, and the value matches the given predicate,
+     * return a {@code Maybe} describing the value, otherwise return an
+     * empty {@code Maybe}.
+     *
+     * @param predicate A predicate to apply to the value, if present.
+     * @return A {@code Maybe} describing the value of this {@code Maybe},
+     *         if a value is present and the value matches the given predicate,
+     *         otherwise an empty {@code Maybe}.
+     */
+    public abstract Maybe<T> filter(Predicate<? super T> predicate);
 }
