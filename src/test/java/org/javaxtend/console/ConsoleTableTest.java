@@ -47,12 +47,12 @@ class ConsoleTableTest {
 
         String expected =
                 """
-                        +--+--------+-----------+
+                        +----+----------+-----------+
                         | ID | Name     | Role      |
-                        +--+--------+-----------+
+                        +----+----------+-----------+
                         | 1  | John Doe | Developer |
                         | 2  | Jane     | Manager   |
-                        +--+--------+-----------+
+                        +----+----------+-----------+
                         """;
         String actual = outContent.toString().replaceAll("\\r\\n", "\n");
         assertEquals(expected, actual);
@@ -68,7 +68,7 @@ class ConsoleTableTest {
                 .print();
 
         String actual = outContent.toString();
-        String expectedBorder = "+----+---------+";
+        String expectedBorder = "+-------+---------+";
         assertEquals(expectedBorder, actual.split("\n")[0].trim());
     }
 

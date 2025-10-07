@@ -28,7 +28,6 @@ import java.util.List;
 public class ConsoleTable {
     private final List<String[]> rows = new ArrayList<>();
     private final List<Integer> colWidths = new ArrayList<>();
-    private boolean padAllColumnsInBorder = false;
 
     /**
      * Adds a new row to the table.
@@ -62,7 +61,6 @@ public class ConsoleTable {
      * @throws IOException If an I/O error occurs reading from the file.
      */
     public ConsoleTable fromCSV(String filePath, String delimiter, boolean hasHeader) throws IOException {
-        this.padAllColumnsInBorder = true;
         try (final BufferedReader br = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8)) {
             String line;
             if (hasHeader && (line = br.readLine()) != null) {
@@ -104,9 +102,7 @@ public class ConsoleTable {
     private String buildBorder() {
         final StringBuilder sb = new StringBuilder("+");
         for (int i = 0; i < colWidths.size(); i++) {
-            int w = colWidths.get(i);
-            int extra = padAllColumnsInBorder ? 2 : (i == colWidths.size() - 1 ? 2 : 0);
-            sb.append("-".repeat(w + extra)).append("+");
+            sb.append("-".repeat(colWidths.get(i) + 2)).append("+");
         }
         return sb.toString();
     }
