@@ -155,6 +155,24 @@ public sealed abstract class Result<T, E> {
         return this;
     }
 
+    /**
+     * Transforms this {@code Result} into a single value by applying one of two functions,
+     * depending on whether this is a {@code Success} or an {@code Error}.
+     *
+     * @param successMapper The function to apply if this is a {@code Success}.
+     * @param errorMapper The function to apply if this is an {@code Error}.
+     * @param <R>         The type of the resulting value.
+     * @return The transformed value.
+     */
+    public final <R> R fold(Function<? super T, ? extends R> successMapper, Function<? super E, ? extends R> errorMapper) {
+        if (this instanceof Success<T, E> s) {
+            return successMapper.apply(s.getValue());
+        } else if (this instanceof Error<T, E> e) {
+            return errorMapper.apply(e.getError());
+        }
+        throw new IllegalStateException("Unreachable code in Result.fold"); // Should not happen
+    }
+
 
     /**
      * Returns the success value or the provided default value if the result is an {@code Error}.

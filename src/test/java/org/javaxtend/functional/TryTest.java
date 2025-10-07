@@ -210,4 +210,25 @@ class TryTest {
         assertEquals("Success(hello)", Try.success("hello").toString());
         assertEquals("Failure(RuntimeException: Something went wrong)", Try.failure(new RuntimeException("Something went wrong")).toString());
     }
+
+    @Test
+    void foldOnSuccessShouldApplySuccessMapper() {
+        Try<Integer> successTry = Try.of(() -> 10 / 2);
+
+        String result = successTry.fold(
+                value -> "Result: " + value,
+                ex -> "Exception: " + ex.getClass().getSimpleName()
+        );
+
+        assertEquals("Result: 5", result);
+    }
+
+    @Test
+    void foldOnFailureShouldApplyFailureMapper() {
+        Try<Integer> failureTry = Try.of(() -> 10 / 0);
+
+        String result = failureTry.fold(value -> "Result: " + value, ex -> "Exception: " + ex.getClass().getSimpleName());
+
+        assertEquals("Exception: ArithmeticException", result);
+    }
 }

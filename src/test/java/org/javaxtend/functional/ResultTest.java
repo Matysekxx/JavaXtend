@@ -86,4 +86,28 @@ class ResultTest {
         Result<Integer, String> result = Result.error("Access denied");
         assertThrows(IOException.class, () -> result.unwrapOrThrow(() -> new IOException("Custom error message")));
     }
+
+    @Test
+    void foldOnSuccessShouldApplySuccessMapper() {
+        Result<String, Integer> successResult = Result.success("OK");
+
+        String result = successResult.fold(
+                s -> "Success: " + s,
+                e -> "Error: " + e
+        );
+
+        assertEquals("Success: OK", result);
+    }
+
+    @Test
+    void foldOnErrorShouldApplyErrorMapper() {
+        // Given
+        Result<String, Integer> errorResult = Result.error(404);
+
+        // When
+        String result = errorResult.fold(s -> "Success: " + s, e -> "Error: " + e);
+
+        // Then
+        assertEquals("Error: 404", result);
+    }
 }

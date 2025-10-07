@@ -143,6 +143,24 @@ public abstract sealed class Try<T> {
         }
         return this;
     }
+
+    /**
+     * Transforms this {@code Try} into a single value by applying one of two functions,
+     * depending on whether this is a {@code Success} or a {@code Failure}.
+     *
+     * @param successMapper The function to apply if this is a {@code Success}.
+     * @param failureMapper The function to apply if this is a {@code Failure}.
+     * @param <R>           The type of the resulting value.
+     * @return The transformed value.
+     */
+    public final <R> R fold(Function<? super T, ? extends R> successMapper, Function<? super Throwable, ? extends R> failureMapper) {
+        if (this instanceof Success<T> s) {
+            return successMapper.apply(s.getValue());
+        } else if (this instanceof Failure<T> f) {
+            return failureMapper.apply(f.getCause());
+        }
+        throw new IllegalStateException("Unreachable code in Try.fold");
+    }
     
     /**
      * Returns the value if this is a {@code Success}, otherwise returns the given default value.
