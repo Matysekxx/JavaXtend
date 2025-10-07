@@ -1,4 +1,6 @@
-package org.javaxtend.functional;
+package org.javaxtend.validation;
+
+import org.javaxtend.functional.Result;
 
 /**
  * A utility class providing common, reusable {@link Validator} implementations.

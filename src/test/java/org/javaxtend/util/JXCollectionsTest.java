@@ -114,8 +114,8 @@ class JXCollectionsTest {
         List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
         ImmutablePair<List<Integer>, List<Integer>> parts = JXCollections.partition(numbers, n -> n % 2 == 0);
         
-        assertEquals(List.of(2, 4, 6), parts.getFirst());
-        assertEquals(List.of(1, 3, 5), parts.getSecond());
+        assertEquals(List.of(2, 4, 6), parts.first());
+        assertEquals(List.of(1, 3, 5), parts.second());
     }
 
     @Test

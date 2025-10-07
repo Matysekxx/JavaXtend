@@ -13,9 +13,9 @@ class ImmutableTripleTest {
     @DisplayName("Should create an immutable triple and get its elements")
     void testCreationAndGetters() {
         Triple<String, Integer, Boolean> triple = ImmutableTriple.of("Test", 123, true);
-        assertEquals("Test", triple.getFirst());
-        assertEquals(123, triple.getSecond());
-        assertTrue(triple.getThird());
+        assertEquals("Test", triple.first());
+        assertEquals(123, triple.second());
+        assertTrue(triple.third());
     }
 
     @Test
@@ -37,9 +37,9 @@ class ImmutableTripleTest {
     void testNullValues() {
         Triple<String, Integer, Boolean> triple = ImmutableTriple.of(null, null, null);
 
-        assertNull(triple.getFirst());
-        assertNull(triple.getSecond());
-        assertNull(triple.getThird());
+        assertNull(triple.first());
+        assertNull(triple.second());
+        assertNull(triple.third());
         assertTrue(triple.isEmpty());
     }
 
@@ -68,9 +68,9 @@ class ImmutableTripleTest {
         ImmutableTriple<String, Integer, Boolean> immutable = ImmutableTriple.of("A", 1, true);
         JXTriple<String, Integer, Boolean> mutable = immutable.toMutable();
 
-        assertEquals(immutable.getFirst(), mutable.getFirst());
-        assertEquals(immutable.getSecond(), mutable.getSecond());
-        assertEquals(immutable.getThird(), mutable.getThird());
+        assertEquals(immutable.first(), mutable.first());
+        assertEquals(immutable.second(), mutable.second());
+        assertEquals(immutable.third(), mutable.third());
         assertInstanceOf(JXTriple.class, mutable);
     }
 }

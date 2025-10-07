@@ -12,8 +12,8 @@ class ImmutablePairTest {
     void testCreationAndGetters() {
         Pair<String, Integer> pair = ImmutablePair.of("Test", 123);
 
-        assertEquals("Test", pair.getFirst());
-        assertEquals(123, pair.getSecond());
+        assertEquals("Test", pair.first());
+        assertEquals(123, pair.second());
     }
 
     @Test
@@ -35,8 +35,8 @@ class ImmutablePairTest {
     void testNullValues() {
         Pair<String, Integer> pair = ImmutablePair.of(null, null);
 
-        assertNull(pair.getFirst());
-        assertNull(pair.getSecond());
+        assertNull(pair.first());
+        assertNull(pair.second());
         assertTrue(pair.isEmpty());
         assertTrue(pair.contains(null));
     }
@@ -54,8 +54,8 @@ class ImmutablePairTest {
         ImmutablePair<String, Integer> original = ImmutablePair.of("One", 2);
         ImmutablePair<Integer, String> swapped = original.swap();
 
-        assertEquals(2, swapped.getFirst());
-        assertEquals("One", swapped.getSecond());
+        assertEquals(2, swapped.first());
+        assertEquals("One", swapped.second());
     }
 
     @Test
@@ -64,8 +64,8 @@ class ImmutablePairTest {
         ImmutablePair<String, Integer> original = ImmutablePair.of("5", 10);
         ImmutablePair<Integer, String> mapped = original.map(Integer::parseInt, Object::toString);
 
-        assertEquals(5, mapped.getFirst());
-        assertEquals("10", mapped.getSecond());
+        assertEquals(5, mapped.first());
+        assertEquals("10", mapped.second());
     }
 
     @Test
@@ -74,8 +74,8 @@ class ImmutablePairTest {
         ImmutablePair<String, Integer> original = ImmutablePair.of("Hello", 10);
         ImmutablePair<Integer, Integer> mapped = original.mapFirst(String::length);
 
-        assertEquals(5, mapped.getFirst());
-        assertEquals(10, mapped.getSecond());
+        assertEquals(5, mapped.first());
+        assertEquals(10, mapped.second());
     }
 
     @Test
@@ -84,8 +84,8 @@ class ImmutablePairTest {
         ImmutablePair<String, Integer> immutable = ImmutablePair.of("A", 1);
         JXPair<String, Integer> mutable = immutable.toMutable();
 
-        assertEquals(immutable.getFirst(), mutable.getFirst());
-        assertEquals(immutable.getSecond(), mutable.getSecond());
+        assertEquals(immutable.first(), mutable.first());
+        assertEquals(immutable.second(), mutable.second());
         assertInstanceOf(JXPair.class, mutable);
     }
 }

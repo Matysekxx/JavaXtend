@@ -61,7 +61,6 @@ class JXScannerTest {
         try (JXScanner scanner = createScanner("1 2 10 20 30")) {
             JXPair<Integer, Integer> pair = scanner.nextIntPair();
             assertEquals(JXPair.of(1, 2), pair);
-
             JXTriple<Integer, Integer, Integer> triple = scanner.nextIntTriple();
             assertEquals(JXTriple.of(10, 20, 30), triple);
         } catch (IOException e) {

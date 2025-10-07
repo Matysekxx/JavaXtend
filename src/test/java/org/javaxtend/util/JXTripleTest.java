@@ -13,9 +13,9 @@ class JXTripleTest {
     @DisplayName("Should create a triple and get its elements")
     void testCreationAndGetters() {
         Triple<String, Integer, Boolean> triple = JXTriple.of("Test", 123, true);
-        assertEquals("Test", triple.getFirst());
-        assertEquals(123, triple.getSecond());
-        assertTrue(triple.getThird());
+        assertEquals("Test", triple.first());
+        assertEquals(123, triple.second());
+        assertTrue(triple.third());
     }
 
     @Test
@@ -26,9 +26,9 @@ class JXTripleTest {
         triple.setSecond(2);
         triple.setThird(true);
 
-        assertEquals("B", triple.getFirst());
-        assertEquals(2, triple.getSecond());
-        assertTrue(triple.getThird());
+        assertEquals("B", triple.first());
+        assertEquals(2, triple.second());
+        assertTrue(triple.third());
     }
 
     @Test
@@ -50,9 +50,9 @@ class JXTripleTest {
     void testNullValues() {
         Triple<String, Integer, Boolean> triple = JXTriple.of(null, null, null);
 
-        assertNull(triple.getFirst());
-        assertNull(triple.getSecond());
-        assertNull(triple.getThird());
+        assertNull(triple.first());
+        assertNull(triple.second());
+        assertNull(triple.third());
         assertTrue(triple.isEmpty());
     }
 

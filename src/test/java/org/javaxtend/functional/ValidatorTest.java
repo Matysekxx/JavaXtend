@@ -1,5 +1,7 @@
 package org.javaxtend.functional;
 
+import org.javaxtend.validation.Validator;
+import org.javaxtend.validation.Validators;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,8 +75,8 @@ class ValidatorTest {
     @Test
     void and_failsAtFirstFailingValidator() {
         Validator<String> validator = Validators.<String>notNull()
-                .and(Validators.minLength(8)) // This one should fail
-                .and(Validators.maxLength(5)); // This one should not be reached
+                .and(Validators.minLength(8))
+                .and(Validators.maxLength(5));
 
         Result<String, String> result = validator.validate("short");
         assertTrue(result.isError());

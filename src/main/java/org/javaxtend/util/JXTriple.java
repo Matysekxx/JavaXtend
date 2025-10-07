@@ -1,5 +1,6 @@
 package org.javaxtend.util;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
@@ -8,24 +9,16 @@ import java.util.function.Function;
  * A mutable, general-purpose implementation of the {@link Triple} interface.
  *
  * <h3>Example of Usage:</h3>
- * <blockquote><pre>
- *     // Create a triple to hold a point in 3D space
- *     JXTriple&lt;Integer, Integer, Integer&gt; point = JXTriple.of(10, 20, 30);
- *
- *     // Access the elements
- *     int x = point.getFirst();
- *     int y = point.getSecond();
- *     int z = point.getThird();
- *
- *     // Modify an element
- *     point.setThird(35);
- * </pre></blockquote>
+ * <blockquote><pre>{@code
+ * JXTriple<Integer, Integer, Integer> point = JXTriple.of(10, 20, 30);
+ * point.setThird(35);
+ * }</pre></blockquote>
  *
  * @param <T1> the type of the first element
  * @param <T2> the type of the second element
  * @param <T3> the type of the third element
  */
-public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
+public final class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3>, Serializable {
 
     private T1 first;
     private T2 second;
@@ -37,23 +30,12 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
         this.third = third;
     }
 
-    /**
-     * Constructs a new triple by copying the elements from another triple.
-     *
-     * @param triple the triple to copy elements from
-     */
-    public JXTriple(Triple<T1, T2, T3> triple) {
-        this.first = triple.getFirst();
-        this.second = triple.getSecond();
-        this.third = triple.getThird();
-    }
-
     public static <T1, T2, T3> JXTriple<T1, T2, T3> of(T1 first, T2 second, T3 third) {
         return new JXTriple<>(first, second, third);
     }
 
     @Override
-    public T1 getFirst() {
+    public T1 first() {
         return first;
     }
 
@@ -62,7 +44,7 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
     }
 
     @Override
-    public T2 getSecond() {
+    public T2 second() {
         return second;
     }
 
@@ -71,7 +53,7 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
     }
 
     @Override
-    public T3 getThird() {
+    public T3 third() {
         return third;
     }
 
@@ -80,15 +62,7 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
     }
 
     /**
-     * Applies mapping functions to all three elements of this triple, producing a new triple.
-     *
-     * @param mapper1 a function to apply to the first element
-     * @param mapper2 a function to apply to the second element
-     * @param mapper3 a function to apply to the third element
-     * @param <R1> the type of the first element of the new triple
-     * @param <R2> the type of the second element of the new triple
-     * @param <R3> the type of the third element of the new triple
-     * @return a new {@code JXTriple} with the transformed elements
+     * Applies mapping functions to all three elements of this triple, producing a new mutable triple.
      */
     public <R1, R2, R3> JXTriple<R1, R2, R3> map(
             Function<? super T1, ? extends R1> mapper1,
@@ -99,10 +73,6 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
 
     /**
      * Applies a mapping function to the first element, keeping the other elements unchanged.
-     *
-     * @param mapper a function to apply to the first element
-     * @param <R> the new type of the first element
-     * @return a new {@code JXTriple} with the transformed first element.
      */
     public <R> JXTriple<R, T2, T3> mapFirst(Function<? super T1, ? extends R> mapper) {
         return new JXTriple<>(mapper.apply(first), second, third);
@@ -110,10 +80,6 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
 
     /**
      * Applies a mapping function to the second element, keeping the other elements unchanged.
-     *
-     * @param mapper a function to apply to the second element
-     * @param <R> the new type of the second element
-     * @return a new {@code JXTriple} with the transformed second element.
      */
     public <R> JXTriple<T1, R, T3> mapSecond(Function<? super T2, ? extends R> mapper) {
         return new JXTriple<>(first, mapper.apply(second), third);
@@ -121,18 +87,13 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
 
     /**
      * Applies a mapping function to the third element, keeping the other elements unchanged.
-     *
-     * @param mapper a function to apply to the third element
-     * @param <R> the new type of the third element
-     * @return a new {@code JXTriple} with the transformed third element.
      */
     public <R> JXTriple<T1, T2, R> mapThird(Function<? super T3, ? extends R> mapper) {
         return new JXTriple<>(first, second, mapper.apply(third));
     }
 
     /**
-     * Creates a new {@link ImmutableTriple} from the elements of this triple.
-     *
+     * Creates a new immutable {@link ImmutableTriple} from the elements of this triple.
      * @return a new immutable triple with the same elements.
      */
     public ImmutableTriple<T1, T2, T3> toImmutable() {
@@ -146,7 +107,7 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
 
     @Override
     public Object[] toArray() {
-        return new Object[] { first, second, third };
+        return new Object[]{first, second, third};
     }
 
     @Override
@@ -157,11 +118,10 @@ public class JXTriple<T1, T2, T3> implements Triple<T1, T2, T3> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        JXTriple<?, ?, ?> jxTriple = (JXTriple<?, ?, ?>) o;
-        return Objects.equals(first, jxTriple.first) &&
-               Objects.equals(second, jxTriple.second) &&
-               Objects.equals(third, jxTriple.third);
+        if (!(o instanceof Triple<?, ?, ?> that)) return false;
+        return Objects.equals(first, that.first()) &&
+               Objects.equals(second, that.second()) &&
+               Objects.equals(third, that.third());
     }
 
     @Override

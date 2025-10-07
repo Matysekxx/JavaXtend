@@ -11,8 +11,8 @@ class JXPairTest {
     @DisplayName("Should create a tuple and get its elements")
     void testCreationAndGetters() {
         Pair<String, Integer> pair = JXPair.of("Test", 123);
-        assertEquals("Test", pair.getFirst());
-        assertEquals(123, pair.getSecond());
+        assertEquals("Test", pair.first());
+        assertEquals(123, pair.second());
     }
 
     @Test
@@ -22,8 +22,8 @@ class JXPairTest {
         tuple.setFirst("Modified");
         tuple.setSecond(2);
 
-        assertEquals("Modified", tuple.getFirst());
-        assertEquals(2, tuple.getSecond());
+        assertEquals("Modified", tuple.first());
+        assertEquals(2, tuple.second());
     }
 
     @Test
@@ -45,8 +45,8 @@ class JXPairTest {
     void testNullValues() {
         Pair<String, Integer> pair = JXPair.of(null, null);
 
-        assertNull(pair.getFirst());
-        assertNull(pair.getSecond());
+        assertNull(pair.first());
+        assertNull(pair.second());
         assertTrue(pair.isEmpty());
         assertTrue(pair.contains(null));
     }
@@ -64,8 +64,8 @@ class JXPairTest {
         JXPair<String, Integer> original = JXPair.of("One", 2);
         JXPair<Integer, String> swapped = original.swap();
 
-        assertEquals(2, swapped.getFirst());
-        assertEquals("One", swapped.getSecond());
+        assertEquals(2, swapped.first());
+        assertEquals("One", swapped.second());
     }
 
     @Test
@@ -74,8 +74,8 @@ class JXPairTest {
         JXPair<String, Integer> original = JXPair.of("5", 10);
         JXPair<Integer, String> mapped = original.map(Integer::parseInt, Object::toString);
 
-        assertEquals(5, mapped.getFirst());
-        assertEquals("10", mapped.getSecond());
+        assertEquals(5, mapped.first());
+        assertEquals("10", mapped.second());
     }
 
     @Test
@@ -84,8 +84,8 @@ class JXPairTest {
         JXPair<String, Integer> original = JXPair.of("Hello", 10);
         JXPair<String, String> mapped = original.mapSecond(val -> "Value: " + val);
 
-        assertEquals("Hello", mapped.getFirst());
-        assertEquals("Value: 10", mapped.getSecond());
+        assertEquals("Hello", mapped.first());
+        assertEquals("Value: 10", mapped.second());
     }
 
     @Test
@@ -94,8 +94,8 @@ class JXPairTest {
         Pair<String, Integer> mutable = JXPair.of("A", 1);
         ImmutablePair<String, Integer> immutable = ((JXPair<String, Integer>) mutable).toImmutable();
 
-        assertEquals(mutable.getFirst(), immutable.getFirst());
-        assertEquals(mutable.getSecond(), immutable.getSecond());
+        assertEquals(mutable.first(), immutable.first());
+        assertEquals(mutable.second(), immutable.second());
         assertInstanceOf(ImmutablePair.class, immutable);
     }
 }

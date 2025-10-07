@@ -1,4 +1,6 @@
-package org.javaxtend.functional;
+package org.javaxtend.validation;
+
+import org.javaxtend.functional.Result;
 
 /**
  * A functional interface for defining a validation rule.

@@ -17,16 +17,16 @@ import java.util.function.BiFunction;
  * @see JXPair
  */
 public interface Pair<T1, T2> {
-    T1 getFirst();
+    T1 first();
     
-    T2 getSecond();
+    T2 second();
 
     /**
      * Checks if the pair is empty, which is true if both elements are null.
      * @return {@code true} if both elements are null, {@code false} otherwise
      */
     default boolean isEmpty() {
-        return getFirst() == null && getSecond() == null;
+        return first() == null && second() == null;
     }
     
     /**
@@ -35,7 +35,7 @@ public interface Pair<T1, T2> {
      * @return {@code true} if the value is found, {@code false} otherwise
      */
     default boolean contains(Object value) {
-        return Objects.equals(getFirst(), value) || Objects.equals(getSecond(), value);
+        return Objects.equals(first(), value) || Objects.equals(second(), value);
     }
 
     /**
@@ -49,7 +49,7 @@ public interface Pair<T1, T2> {
      * @return the result of applying the function to the pair's elements
      */
     default <R> R apply(BiFunction<? super T1, ? super T2, ? extends R> function) {
-        return function.apply(getFirst(), getSecond());
+        return function.apply(first(), second());
     }
 
     Object[] toArray();

@@ -1,7 +1,6 @@
 package org.javaxtend.util;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -20,10 +19,7 @@ import java.util.function.Function;
  * @param <T1> the type of the first element
  * @param <T2> the type of the second element
  */
-public final class ImmutablePair<T1, T2> implements Pair<T1, T2> {
-
-    private final T1 first;
-    private final T2 second;
+public record ImmutablePair<T1, T2>(T1 first, T2 second) implements Pair<T1, T2> {
 
     /**
      * Constructs a new immutable tuple with the specified elements.
@@ -31,9 +27,7 @@ public final class ImmutablePair<T1, T2> implements Pair<T1, T2> {
      * @param first  the first element
      * @param second the second element
      */
-    public ImmutablePair(T1 first, T2 second) {
-        this.first = first;
-        this.second = second;
+    public ImmutablePair {
     }
 
     /**
@@ -47,16 +41,6 @@ public final class ImmutablePair<T1, T2> implements Pair<T1, T2> {
      */
     public static <T1, T2> ImmutablePair<T1, T2> of(T1 first, T2 second) {
         return new ImmutablePair<>(first, second);
-    }
-
-    @Override
-    public T1 getFirst() {
-        return first;
-    }
-
-    @Override
-    public T2 getSecond() {
-        return second;
     }
 
     /**
@@ -81,7 +65,7 @@ public final class ImmutablePair<T1, T2> implements Pair<T1, T2> {
      * Applies a mapping function to the first element, keeping the second element unchanged.
      *
      * @param mapper a function to apply to the first element
-     * @param <R> the new type of the first element
+     * @param <R>    the new type of the first element
      * @return a new {@code ImmutablePair} with the transformed first element.
      */
     public <R> ImmutablePair<R, T2> mapFirst(Function<? super T1, ? extends R> mapper) {
@@ -92,7 +76,7 @@ public final class ImmutablePair<T1, T2> implements Pair<T1, T2> {
      * Applies a mapping function to the second element, keeping the first element unchanged.
      *
      * @param mapper a function to apply to the second element
-     * @param <R> the new type of the second element
+     * @param <R>    the new type of the second element
      * @return a new {@code ImmutablePair} with the transformed second element.
      */
     public <R> ImmutablePair<T1, R> mapSecond(Function<? super T2, ? extends R> mapper) {
@@ -123,16 +107,4 @@ public final class ImmutablePair<T1, T2> implements Pair<T1, T2> {
         return "(" + first + ", " + second + ")";
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(first, second);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ImmutablePair<?, ?> that = (ImmutablePair<?, ?>) o;
-        return Objects.equals(first, that.first) && Objects.equals(second, that.second);
-    }
 }

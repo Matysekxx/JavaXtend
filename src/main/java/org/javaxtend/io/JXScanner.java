@@ -181,7 +181,7 @@ public class JXScanner implements Closeable {
     public char nextChar() {
         return next().charAt(0);
     }
-    
+
     /**
      * Reads the next {@code count} tokens as integers and returns them as an array.
      * @param count the number of integers to read.

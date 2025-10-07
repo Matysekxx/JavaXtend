@@ -2,7 +2,6 @@ package org.javaxtend.io;
 
 import org.javaxtend.console.ConsoleColors;
 import org.javaxtend.util.JXPair;
-import org.javaxtend.util.JXTriple;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -109,7 +108,7 @@ public final class IO {
         return SCANNER.nextIntPair();
     }
 
-    public static JXTriple<Integer, Integer, Integer> nextIntTriple() {
+    public static org.javaxtend.util.JXTriple<Integer, Integer, Integer> nextIntTriple() {
         return SCANNER.nextIntTriple();
     }
 

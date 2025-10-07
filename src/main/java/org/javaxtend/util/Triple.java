@@ -18,18 +18,18 @@ import java.util.Objects;
  */
 public interface Triple<T1, T2, T3> {
 
-    T1 getFirst();
+    T1 first();
 
-    T2 getSecond();
+    T2 second();
 
-    T3 getThird();
+    T3 third();
 
     /**
      * Checks if the triple is empty, which is true if all elements are null.
      * @return {@code true} if all elements are null, {@code false} otherwise
      */
     default boolean isEmpty() {
-        return getFirst() == null && getSecond() == null && getThird() == null;
+        return first() == null && second() == null && third() == null;
     }
 
     /**
@@ -38,7 +38,7 @@ public interface Triple<T1, T2, T3> {
      * @return {@code true} if the value is found, {@code false} otherwise
      */
     default boolean contains(Object value) {
-        return Objects.equals(getFirst(), value) || Objects.equals(getSecond(), value) || Objects.equals(getThird(), value);
+        return Objects.equals(first(), value) || Objects.equals(second(), value) || Objects.equals(third(), value);
     }
 
     List<Object> toList();
