@@ -7,10 +7,8 @@ import org.javaxtend.validation.Guard;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
 
 /**
  * A one-dimensional labeled array capable of holding any data type, inspired by pandas.Series.
@@ -24,42 +22,29 @@ import java.util.stream.Stream;
  *
  * @param <T> The type of data held in the series.
  */
-public class Series<T> {
+public class Series<T> implements TabularData<T, Series<T>> {
     private final List<T> values;
-    private final List<?> index;
+    private final Index index;
     private final String name;
-    private final Map<Object, Integer> indexMap;
 
     public Series(List<T> values, List<?> index, String name) {
         Guard.against().isNull(values, "Values cannot be null");
-        Guard.against().isNull(index, "Index cannot be null");
 
         if (values.size() != index.size()) {
             throw new IllegalArgumentException("Values and index must have the same length.");
         }
 
         this.values = List.copyOf(values);
-        this.index = List.copyOf(index);
+        this.index = new Index(index);
         this.name = name;
-        this.indexMap = buildIndexMap();
     }
 
     public Series(List<T> values) {
-        this(values, IntRange.of(0, values.size() - 1).toList(), null);
+        this(values, IntRange.of(0, values.size() - 1).toList(), null); // Default index
     }
 
     public Series(T[] values, Object[] index) {
         this(List.of(values), List.of(index), null);
-    }
-
-
-
-    private Map<Object, Integer> buildIndexMap() {
-        final Map<Object, Integer> map = new HashMap<>(index.size());
-        for (int i = 0; i < index.size(); i++) {
-            map.put(index.get(i), i);
-        }
-        return Map.copyOf(map);
     }
 
     public List<T> values() {
@@ -67,23 +52,53 @@ public class Series<T> {
     }
 
     public List<?> index() {
-        return index;
+        return index.toList();
     }
 
-    public T get(Object key) {
-        final Integer position = indexMap.get(key);
-        if (position == null) {
-            throw new KeyException("Key not found in index: " + key);
-        }
+    @Override
+    public T getByLabel(Object label) {
+        final int position = index.getPosition(label);
         return values.get(position);
     }
 
+
+    @Override
+    public T getByPosition(int position) {
+        Guard.against().outOfRange(position, 0, size() - 1, "position");
+        return values.get(position);
+    }
+
+    @Override
+    public Series<T> slice(int start, int end) {
+        Guard.against().outOfRange(start, 0, size(), "start");
+        Guard.against().outOfRange(end, start, size(), "end");
+        return new Series<>(
+                values.subList(start, end),
+                index.toList().subList(start, end),
+                name
+        );
+    }
     /**
      * Returns the number of elements in the series.
      * @return the number of elements.
      */
     public int size() {
         return values.size();
+    }
+
+    /**
+     * Returns the first {@code n} rows of the Series.
+     *
+     * @param n The number of rows to return.
+     * @return A new Series containing the first n rows.
+     */
+    @Override
+    public Series<T> head(int n) {
+        if (n <= 0) {
+            return new Series<>(List.of(), List.of(), name);
+        }
+        int limit = Math.min(n, size());
+        return new Series<>(values.subList(0, limit), index.toList().subList(0, limit), name);
     }
 
     /**
@@ -97,7 +112,7 @@ public class Series<T> {
     public <R> Series<R> map(Function<? super T, ? extends R> mapper) {
         Guard.against().isNull(mapper, "mapper");
         List<R> newValues = this.values.stream().map(mapper).collect(Collectors.toList());
-        return new Series<>(newValues, this.index, this.name);
+        return new Series<>(newValues, this.index.toList(), this.name);
     }
 
     /**
@@ -114,7 +129,7 @@ public class Series<T> {
             T value = values.get(i);
             if (predicate.test(value)) {
                 newValues.add(value);
-                newIndex.add(this.index.get(i));
+                newIndex.add(this.index.toList().get(i));
             }
         }
         return new Series<>(newValues, newIndex, this.name);
@@ -154,9 +169,9 @@ public class Series<T> {
             return Maybe.nothing();
         }
 
-        var minVal = values.getFirst();
+        T minVal = values.getFirst();
         for (int i = 1; i < values.size(); i++) {
-            var current = values.get(i);
+            T current = values.get(i);
             if (((Comparable<T>) current).compareTo(minVal) < 0) {
                 minVal = current;
             }
@@ -176,9 +191,9 @@ public class Series<T> {
             return Maybe.nothing();
         }
 
-        var maxVal = values.getFirst();
+        T maxVal = values.getFirst();
         for (int i = 1; i < values.size(); i++) {
-            var current = values.get(i);
+            T current = values.get(i);
             if (((Comparable<T>) current).compareTo(maxVal) > 0) {
                 maxVal = current;
             }
@@ -221,8 +236,8 @@ public class Series<T> {
         if (name != null && !name.isBlank()) {
             sb.append("Name: ").append(name).append("\n");
         }
-        for (int i = 0; i < index.size(); i++) {
-            sb.append(index.get(i)).append("\t").append(values.get(i)).append("\n");
+        for (int i = 0; i < size(); i++) {
+            sb.append(index.toList().get(i)).append("\t").append(values.get(i)).append("\n");
         }
         return sb.toString();
     }

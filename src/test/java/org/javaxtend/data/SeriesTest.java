@@ -1,6 +1,5 @@
 package org.javaxtend.data;
 
-import org.javaxtend.functional.Maybe;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -56,20 +55,52 @@ class SeriesTest {
     }
 
     @Test
-    @DisplayName("get() should return value for a valid key")
-    void get_withValidKey_returnsValue() {
+    @DisplayName("getByLabel() should return value for a valid key")
+    void getByLabel_withValidKey_returnsValue() {
         var values = List.of(10, 20);
         var index = List.of("x", "y");
         var series = new Series<>(values, index, "test");
 
-        assertEquals(20, series.get("y"));
+        assertEquals(20, series.getByLabel("y"));
     }
 
     @Test
-    @DisplayName("get() should throw KeyException for an invalid key")
-    void get_withInvalidKey_throwsException() {
+    @DisplayName("getByLabel() should throw KeyException for an invalid key")
+    void getByLabel_withInvalidKey_throwsException() {
         var series = new Series<>(List.of(10), List.of("x"), "test");
-        assertThrows(KeyException.class, () -> series.get("z"));
+        assertThrows(KeyException.class, () -> series.getByLabel("z"));
+    }
+
+    @Test
+    @DisplayName("getByPosition() should return value for a valid position")
+    void getByPosition_withValidPosition_returnsValue() {
+        var series = new Series<>(List.of(10, 20, 30));
+        assertEquals(30, series.getByPosition(2));
+    }
+
+    @Test
+    @DisplayName("getByPosition() should throw exception for an invalid position")
+    void getByPosition_withInvalidPosition_throwsException() {
+        var series = new Series<>(List.of(10, 20, 30));
+        assertThrows(IllegalArgumentException.class, () -> series.getByPosition(3));
+        assertThrows(IllegalArgumentException.class, () -> series.getByPosition(-1));
+    }
+
+    @Test
+    @DisplayName("slice() should return a correct sub-series")
+    void slice_returnsSubSeries() {
+        var series = new Series<>(List.of(10, 20, 30, 40, 50));
+        var sliced = series.slice(1, 4);
+        assertEquals(List.of(20, 30, 40), sliced.values());
+        assertEquals(List.of(1, 2, 3), sliced.index());
+    }
+
+    @Test
+    @DisplayName("head() should return the first N elements")
+    void head_returnsFirstNElements() {
+        var series = new Series<>(List.of(10, 20, 30, 40, 50));
+        var head = series.head(3);
+        assertEquals(List.of(10, 20, 30), head.values());
     }
 
     @Test
@@ -140,10 +171,10 @@ class SeriesTest {
         var series = new Series<>(List.of(10.0, 20.0, 60.0, 10.0));
         Series<Double> stats = series.describe();
 
-        assertEquals(4.0, stats.get("count"));
-        assertEquals(25.0, stats.get("mean"));
-        assertEquals(10.0, stats.get("min"));
-        assertEquals(60.0, stats.get("max"));
+        assertEquals(4.0, stats.getByLabel("count"));
+        assertEquals(25.0, stats.getByLabel("mean"));
+        assertEquals(10.0, stats.getByLabel("min"));
+        assertEquals(60.0, stats.getByLabel("max"));
     }
 
     @Test
