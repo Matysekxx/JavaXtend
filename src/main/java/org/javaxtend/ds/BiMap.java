@@ -1,9 +1,12 @@
 package org.javaxtend.ds;
 
+import org.javaxtend.validation.Guard;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A bidirectional map that maintains a one-to-one correspondence between keys and values.
@@ -52,11 +55,11 @@ public class BiMap<K, V> {
         backwardMap = new HashMap<>();
     }
     private BiMap(
-            Map<?, ?> forwardMap,
-            Map<?, ?> backwardMap,
+            Map<K, V> forwardMap,
+            Map<V, K> backwardMap,
             BiMap<V, K> inverse) {
-        this.forwardMap = (Map<K, V>) forwardMap;
-        this.backwardMap = (Map<V, K>) backwardMap;
+        this.forwardMap = forwardMap;
+        this.backwardMap = backwardMap;
         this.inverse = inverse;
     }
 
@@ -71,19 +74,35 @@ public class BiMap<K, V> {
      * @return the previous value associated with the key, or {@code null} if there was no mapping for the key.
      */
     public V put(K key, V value) {
+        Guard.against().isNull(key, "Key cannot be null");
+        Guard.against().isNull(value, "Value cannot be null");
         if (backwardMap.containsKey(value)) {
-            final K oldKeyMappedToValue = backwardMap.get(value);
-            if (!oldKeyMappedToValue.equals(key)) {
-                forwardMap.remove(oldKeyMappedToValue);
+            K existingKey = backwardMap.get(value);
+            if (!Objects.equals(existingKey, key)) {
+                forwardMap.remove(existingKey);
             }
+        }
+        final V oldValue = forwardMap.put(key, value);
+        if (oldValue != null) {
+            backwardMap.remove(oldValue);
+        }
+        backwardMap.put(value, key);
+
+        return oldValue;
+    }
+
+    /**
+     * Removes the mapping for a key from this bimap if it is present.
+     *
+     * @param key key whose mapping is to be removed from the map
+     * @return the previous value associated with key, or {@code null} if there was no mapping for key.
+     */
+    public V remove(Object key) {
+        V value = forwardMap.remove(key);
+        if (value != null) {
             backwardMap.remove(value);
         }
-        final V oldValue = forwardMap.get(key);
-        if (oldValue != null) backwardMap.remove(oldValue);
-
-        forwardMap.put(key, value);
-        backwardMap.put(value, key);
-        return oldValue;
+        return value;
     }
 
     /**
@@ -167,11 +186,29 @@ public class BiMap<K, V> {
     }
 
     /**
-     * Removes all of the mappings from this map.
+     * Removes all the mappings from this map.
      * The map will be empty after this call returns.
      */
     public void clear() {
         forwardMap.clear();
         backwardMap.clear();
+    }
+
+    @Override
+    public String toString() {
+        return forwardMap.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BiMap<?, ?> biMap = (BiMap<?, ?>) o;
+        return Objects.equals(forwardMap, biMap.forwardMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(forwardMap);
     }
 }

@@ -30,7 +30,7 @@ class BiMapTest {
     @DisplayName("put() should overwrite existing key")
     void put_overwritesExistingKey() {
         biMap.put("A", 1);
-        biMap.put("A", 2); // Overwrite
+        biMap.put("A", 2);
 
         assertEquals(1, biMap.size());
         assertEquals(2, biMap.get("A"));
@@ -42,7 +42,7 @@ class BiMapTest {
     @DisplayName("put() should remove old key when value is duplicated")
     void put_removesOldKeyForDuplicateValue() {
         biMap.put("A", 1);
-        biMap.put("B", 1); // "B" maps to 1, so "A" should be removed
+        biMap.put("B", 1);
 
         assertEquals(1, biMap.size());
         assertFalse(biMap.containsKey("A"), "Old key 'A' should be removed");
@@ -137,12 +137,37 @@ class BiMapTest {
         biMap.put("A", 1);
         BiMap<Integer, String> inverseMap = biMap.inverse();
 
-        // Modify through the inverse view
         inverseMap.put(3, "C");
 
-        // Check original map
         assertTrue(biMap.containsKey("C"));
         assertEquals(3, biMap.get("C"));
         assertEquals(2, biMap.size());
+    }
+
+    @Test
+    @DisplayName("remove() should remove the entry from both maps")
+    void remove_removesEntryCorrectly() {
+        biMap.put("A", 1);
+        biMap.put("B", 2);
+
+        Integer removedValue = biMap.remove("A");
+
+        assertEquals(1, removedValue);
+        assertEquals(1, biMap.size());
+        assertFalse(biMap.containsKey("A"));
+        assertNull(biMap.get("A"));
+        assertFalse(biMap.containsValue(1));
+        assertNull(biMap.getKey(1));
+
+        assertTrue(biMap.containsKey("B"));
+        assertEquals(2, biMap.get("B"));
+    }
+
+    @Test
+    @DisplayName("remove() on non-existent key should return null")
+    void remove_nonExistentKey() {
+        biMap.put("A", 1);
+        assertNull(biMap.remove("Z"));
+        assertEquals(1, biMap.size());
     }
 }
