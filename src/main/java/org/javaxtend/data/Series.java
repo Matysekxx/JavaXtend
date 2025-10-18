@@ -40,7 +40,7 @@ public class Series<T> implements TabularData<T, Series<T>> {
     }
 
     public Series(List<T> values) {
-        this(values, IntRange.of(0, values.size() - 1).toList(), null); // Default index
+        this(values, IntRange.of(0, values.size() - 1).toList(), null);
     }
 
     public Series(T[] values, Object[] index) {
