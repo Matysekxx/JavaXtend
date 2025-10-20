@@ -2,12 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.javaxtend</groupId>
     <artifactId>JavaXtend</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+
+    <name>JavaXtend</name>
+    <description>Java utility library created by Matěj</description>
+    <url>https://github.com/Matysekxx/JavaXtend</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>Matysekxx</id>
+            <name>Matěj</name>
+            <url>https://github.com/Matysekxx</url>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>25</maven.compiler.source>
