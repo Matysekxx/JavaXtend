@@ -51,7 +51,7 @@ class MaybeTest {
 
     @Test
     void ifJust_doesNotExecuteOnNothing() {
-        Maybe.nothing().ifJust(_ -> fail("Should not be executed"));
+        Maybe.nothing().ifJust(n -> fail("Should not be executed"));
     }
 
     @Test

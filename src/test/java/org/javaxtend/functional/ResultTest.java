@@ -101,13 +101,8 @@ class ResultTest {
 
     @Test
     void foldOnErrorShouldApplyErrorMapper() {
-        // Given
         Result<String, Integer> errorResult = Result.error(404);
-
-        // When
         String result = errorResult.fold(s -> "Success: " + s, e -> "Error: " + e);
-
-        // Then
         assertEquals("Error: 404", result);
     }
 }
