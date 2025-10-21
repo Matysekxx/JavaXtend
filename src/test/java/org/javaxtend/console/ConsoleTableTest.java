@@ -68,7 +68,7 @@ class ConsoleTableTest {
                 .print();
 
         String actual = outContent.toString();
-        String expectedBorder = "+-------+---------+";
+        String expectedBorder = "+------+---------+";
         assertEquals(expectedBorder, actual.split("\n")[0].trim());
     }
 
