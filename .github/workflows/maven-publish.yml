@@ -19,11 +19,20 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 25
-          server-id: github
-          settings-path: ${{ github.workspace }}
+          java-version: '25'
 
-      - name: Publish package
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
+      - name: Upload JAR to Release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/JavaXtend-${{ github.ref_name }}.jar
+          asset_name: JavaXtend-${{ github.ref_name }}.jar
+          tag: ${{ github.ref_name }}
+
+      - name: Publish to GitHub Packages
         run: mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -11,7 +11,7 @@
     <packaging>jar</packaging>
 
     <name>JavaXtend</name>
-    <description>Java utility library created by Matěj</description>
+    <description>Java utility library created by Matysekxx</description>
     <url>https://github.com/Matysekxx/JavaXtend</url>
 
     <licenses>
@@ -77,5 +77,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/Matysekxx/JavaXtend</url>
+        </repository>
+    </distributionManagement>
 
 </project>
