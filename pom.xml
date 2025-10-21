@@ -7,7 +7,7 @@
 
     <groupId>com.github.Matysekxx</groupId>
     <artifactId>JavaXtend</artifactId>
-    <version>1.0.0</version>
+    <version>${revision}</version>
     <packaging>jar</packaging>
 
     <name>JavaXtend</name>
@@ -34,6 +34,7 @@
         <maven.compiler.source>25</maven.compiler.source>
         <maven.compiler.target>25</maven.compiler.target>
         <maven.compiler.release>25</maven.compiler.release>
+        <revision>1.0.0-SNAPSHOT</revision> <!-- Výchozí verze pro lokální vývoj -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
