@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.Matysekxx</groupId>
+    <groupId>com.github.Matysekxx.JavaXtend</groupId>
     <artifactId>JavaXtend</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
