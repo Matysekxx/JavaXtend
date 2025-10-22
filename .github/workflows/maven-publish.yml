@@ -8,7 +8,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # KLÍČOVÁ ZMĚNA: Povolí zápis, nutné pro nahrání souboru k release
+      contents: write
       packages: write
 
     steps:
