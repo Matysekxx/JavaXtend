@@ -5,14 +5,14 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.Matysekxx.JavaXtend</groupId>
-    <artifactId>JavaXtend</artifactId>
+    <groupId>com.github.matysekxx</groupId>
+    <artifactId>javaxtend</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
 
     <name>JavaXtend</name>
     <description>Java utility library created by Matysekxx</description>
-    <url>https://github.com/Matysekxx/JavaXtend</url>
+    <url>https://github.com/matysekxx/javaxtend</url>
 
     <licenses>
         <license>
@@ -24,16 +24,16 @@
 
     <developers>
         <developer>
-            <id>Matysekxx</id>
+            <id>matysekxx</id>
             <name>Matěj</name>
-            <url>https://github.com/Matysekxx</url>
+            <url>https://github.com/matysekxx</url>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/Matysekxx/JavaXtend.git</connection>
-        <developerConnection>scm:git:ssh://github.com:Matysekxx/JavaXtend.git</developerConnection>
-        <url>https://github.com/Matysekxx/JavaXtend</url>
+        <connection>scm:git:git://github.com/matysekxx/javaxtend.git</connection>
+        <developerConnection>scm:git:git@github.com:matysekxx/javaxtend.git</developerConnection>
+        <url>https://github.com/matysekxx/javaxtend</url>
     </scm>
 
     <properties>
@@ -127,7 +127,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/Matysekxx/JavaXtend</url>
+            <url>https://maven.pkg.github.com/matysekxx/javaxtend</url>
         </repository>
     </distributionManagement>
 

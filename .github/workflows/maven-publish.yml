@@ -15,15 +15,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Set up JDK 21 and configure Maven auth
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
+          server-id: github
+          server-username: ${{ github.actor }}
+          server-password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Publish
-        # run: mvn -B deploy -Drevision=${GITHUB_REF_NAME#v} -DskipTests
-        run: mvn -B deploy -Drevision=${GITHUB_REF_NAME#v}
+        run: mvn -B deploy -Drevision=${GITHUB_REF_NAME#v} -DskipTests
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -31,7 +33,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/JavaXtend-${GITHUB_REF_NAME#v}.jar
+          file: target/javaxtend-${GITHUB_REF_NAME#v}.jar
           asset_name: JavaXtend-${GITHUB_REF_NAME#v}.jar
           tag: ${{ github.ref_name }}
           overwrite: true
