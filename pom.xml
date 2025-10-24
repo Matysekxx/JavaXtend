@@ -12,7 +12,7 @@
 
     <name>JavaXtend</name>
     <description>Java utility library created by Matysekxx</description>
-    <url>https://github.com/matysekxx/javaxtend</url>
+    <url>https://github.com/Matysekxx/javaxtend</url>
 
     <licenses>
         <license>
@@ -26,14 +26,14 @@
         <developer>
             <id>matysekxx</id>
             <name>Matěj</name>
-            <url>https://github.com/matysekxx</url>
+            <url>https://github.com/Matysekxx</url>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/matysekxx/javaxtend.git</connection>
-        <developerConnection>scm:git:git@github.com:matysekxx/javaxtend.git</developerConnection>
-        <url>https://github.com/matysekxx/javaxtend</url>
+        <connection>scm:git:git://github.com/Matysekxx/javaxtend.git</connection>
+        <developerConnection>scm:git:git@github.com:Matysekxx/javaxtend.git</developerConnection>
+        <url>https://github.com/Matysekxx/javaxtend</url>
     </scm>
 
     <properties>
@@ -131,7 +131,7 @@
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/matysekxx/javaxtend</url>
+            <url>https://maven.pkg.github.com/Matysekxx/javaxtend</url>
         </repository>
     </distributionManagement>
 
