@@ -1,4 +1,4 @@
-name: Publish package to GitHub Packages
+name: Release and Publish to GitHub Packages
 
 on:
   release:
@@ -24,14 +24,23 @@ jobs:
           server-username: ${{ github.actor }}
           server-password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Publish to GitHub Packages
-        run: mvn -B deploy -Drevision=${GITHUB_REF_NAME#v}
+      - name: Compute version from tag
+        id: get_version
+        # Extract version from the tag (e.g., v1.2.3 -> 1.2.3)
+        run: echo "version=${{ github.event.release.tag_name }}" | sed -e 's/^v//' | xargs -I {} echo "VERSION={}" >> $GITHUB_ENV
 
-      - name: Upload JAR to Release
-        uses: svenstaro/upload-release-action@v2
+      - name: Build and Publish to GitHub Packages
+        run: mvn -B -Drevision=${VERSION} -DskipTests deploy
+
+      - name: Update GitHub Release with built assets
+        uses: ncipollo/release-action@v1
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: target/javaxtend-${GITHUB_REF_NAME#v}.jar
-          asset_name: javaxtend-${GITHUB_REF_NAME#v}.jar
-          tag: ${{ github.ref_name }}
-          overwrite: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # This ensures we are updating the release that triggered the workflow
+          tag: ${{ github.event.release.tag_name }}
+          # allowUpdates: true allows the action to upload assets to an existing release
+          allowUpdates: true
+          artifacts: |
+            target/javaxtend-${{ env.VERSION }}.jar,
+            target/javaxtend-${{ env.VERSION }}-sources.jar,
+            target/javaxtend-${{ env.VERSION }}-javadoc.jar
