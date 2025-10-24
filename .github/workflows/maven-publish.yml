@@ -34,12 +34,11 @@ jobs:
         shell: bash
 
       - name: Build and Publish to GitHub Packages
-        # Use versions-maven-plugin to explicitly set the project version before deploying
-        run: >
-          mvn -B
-          -Drevision=${{ steps.get_version.outputs.version }}
-          -DskipTests
-          deploy
+        # Set the version as an environment variable for the step.
+        # Maven will automatically pick up env.MAVEN_OPTS.
+        run: mvn -B -DskipTests deploy
+        env:
+          MAVEN_OPTS: -Drevision=${{ steps.get_version.outputs.version }}
 
       - name: Update GitHub Release with built assets
         uses: ncipollo/release-action@v1
