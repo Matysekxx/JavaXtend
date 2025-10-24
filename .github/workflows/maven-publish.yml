@@ -22,7 +22,7 @@ jobs:
           java-version: '21'
           server-id: github
           server-username: ${{ github.actor }}
-          server-password: ${{ secrets.GITHUB_TOKEN }}
+          server-password: ${{ secrets.GH_PACKAGES_TOKEN }}
 
       - name: Compute version from tag
         id: get_version
