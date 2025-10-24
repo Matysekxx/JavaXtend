@@ -6,10 +6,10 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write # 'write' permission includes 'read' for packages
+      packages: write
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
