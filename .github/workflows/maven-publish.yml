@@ -24,6 +24,15 @@ jobs:
           server-username: ${{ github.actor }}
           server-password: ${{ secrets.GH_PACKAGES_TOKEN }}
 
+      - name: Debug check for secret
+        run: |
+          if [ -z "${{ secrets.GH_PACKAGES_TOKEN }}" ]; then
+            echo "Secret GH_PACKAGES_TOKEN is NOT set!"
+            exit 1
+          else
+            echo "Secret GH_PACKAGES_TOKEN is set."
+          fi
+
       - name: Compute version from tag
         id: get_version
         # Extract version from the tag (e.g., v1.2.3 -> 1.2.3)
