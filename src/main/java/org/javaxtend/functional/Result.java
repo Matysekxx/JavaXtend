@@ -19,7 +19,7 @@ import java.util.function.Supplier;
  *     return Result.success(a / b);
  * }
  *
- * Result<Double, String> result = divide(10, 0);
+ * Result<Double, String> result = divide(10.0, 0.0);
  * result
  *     .ifSuccess(value -> System.out.println("Result is: " + value))
  *     .ifError(error -> System.err.println("Error occurred: " + error));

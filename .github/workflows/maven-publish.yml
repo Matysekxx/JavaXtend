@@ -27,10 +27,10 @@ jobs:
       - name: Compute version from tag
         id: get_version
         # Extract version from the tag (e.g., v1.2.3 -> 1.2.3)
-        run: echo "version=${{ github.event.release.tag_name }}" | sed -e 's/^v//' | xargs -I {} echo "VERSION={}" >> $GITHUB_ENV
+        run: echo "version=$(echo ${{ github.event.release.tag_name }} | sed 's/^v//')" >> $GITHUB_OUTPUT
 
       - name: Build and Publish to GitHub Packages
-        run: mvn -B -Drevision=${VERSION} -DskipTests deploy
+        run: mvn -B -Drevision=${{ steps.get_version.outputs.version }} -DskipTests deploy
 
       - name: Update GitHub Release with built assets
         uses: ncipollo/release-action@v1
@@ -41,6 +41,6 @@ jobs:
           # allowUpdates: true allows the action to upload assets to an existing release
           allowUpdates: true
           artifacts: |
-            target/javaxtend-${{ env.VERSION }}.jar,
-            target/javaxtend-${{ env.VERSION }}-sources.jar,
-            target/javaxtend-${{ env.VERSION }}-javadoc.jar
+            target/javaxtend-${{ steps.get_version.outputs.version }}.jar,
+            target/javaxtend-${{ steps.get_version.outputs.version }}-sources.jar,
+            target/javaxtend-${{ steps.get_version.outputs.version }}-javadoc.jar
