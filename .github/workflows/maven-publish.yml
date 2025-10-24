@@ -27,7 +27,9 @@ jobs:
       - name: Compute version from tag
         id: get_version
         # Extract version from the tag (e.g., v1.2.3 -> 1.2.3)
-        run: echo "version=$(echo ${{ github.event.release.tag_name }} | sed 's/^v//')" >> $GITHUB_OUTPUT
+        run: |
+          TAG=${{ github.event.release.tag_name }}
+          echo "version=${TAG#v}" >> $GITHUB_OUTPUT
 
       - name: Debug computed version
         run: echo "Computed version for Maven: ${{ steps.get_version.outputs.version }}"
