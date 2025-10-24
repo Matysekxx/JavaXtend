@@ -8,7 +8,7 @@ import org.javaxtend.io.IO;
  * It provides four standard logging levels: DEBUG, INFO, WARN, and ERROR. The current
  * logging level can be set globally to filter out less important messages.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     // Set the minimum level of messages to display
  *     ConsoleLogger.setLevel(ConsoleLogger.LogLevel.INFO);

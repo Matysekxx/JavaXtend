@@ -11,7 +11,7 @@ import java.util.Map;
  * It is optimized for prefix-based searches, making it ideal for applications
  * like autocomplete or spell-checking.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * Trie dictionary = new Trie();
  * dictionary.insert("car");

@@ -11,7 +11,7 @@ package org.javaxtend.console;
  * terminal or console where the application is run. Not all terminals support
  * all colors or styles.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     // Simple colorization
  *     System.out.println(ConsoleColors.RED.colorize("This is an error message."));

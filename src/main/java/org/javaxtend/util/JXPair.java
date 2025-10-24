@@ -12,7 +12,7 @@ import java.util.function.Function;
  * where object allocation needs to be minimized. For a thread-safe, immutable
  * alternative, see {@link ImmutablePair}.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * JXPair<String, Integer> userProfile = JXPair.of("John Doe", 30);
  * userProfile.setSecond(31); // Update the age

@@ -9,7 +9,7 @@ import java.util.function.Function;
  * Once an instance of this class is created, its elements cannot be changed.
  * This makes it inherently thread-safe.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     // Create an immutable triple
  *     Triple&lt;String, Integer, Boolean&gt; record = ImmutableTriple.of("data", 123, true);

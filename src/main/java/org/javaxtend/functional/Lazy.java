@@ -6,7 +6,7 @@ import java.util.function.Supplier;
  * A container for a value that is computed lazily (on first access).
  * This implementation is thread-safe. The value is computed only once and then cached.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * // The expensive calculation will not run until 'get()' is called.
  * Lazy<HeavyObject> lazyObject = Lazy.of(() -> new HeavyObject());

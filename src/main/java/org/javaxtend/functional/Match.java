@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  * It allows matching a given value against various conditions (type, predicate, equality)
  * and executing a corresponding function for the first matching case.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * Object value = "hello";
  *

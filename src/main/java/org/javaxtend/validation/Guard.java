@@ -3,7 +3,7 @@ package org.javaxtend.validation;
 /**
  * A utility class providing a single entry point for common validation checks (guard clauses).
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * public void process(String name, int amount) {
  *     Guard.against().nullOrBlank(name, "name");

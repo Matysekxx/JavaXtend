@@ -13,7 +13,7 @@ import java.util.StringJoiner;
  * It is designed to reduce boilerplate code in scenarios like competitive
  * programming or data serialization.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     try (JXWriter writer = new JXWriter()) { // Defaults to System.out
  *         int[] numbers = {1, 2, 3, 4, 5};

@@ -9,7 +9,7 @@ import org.javaxtend.functional.Result;
  *
  * @param <T> The type of the object to validate.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * // Create a composite validator for a username
  * Validator<String> usernameValidator = Validators.<String>notNull()

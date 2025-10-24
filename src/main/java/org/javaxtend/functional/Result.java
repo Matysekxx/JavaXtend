@@ -10,20 +10,20 @@ import java.util.function.Supplier;
  * or fail (`Error`).
  * It is a type-safe alternative to returning null or throwing exceptions for expected failures.
  *
- * <h3>Example of Usage:</h3>
- * <blockquote><pre>
+ * <h2>Example of Usage:</h2>
+ * <blockquote><pre>{@code
  * public Result<Double, String> divide(double a, double b) {
  *     if (b == 0) {
  *         return Result.error("Cannot divide by zero.");
  *     }
  *     return Result.success(a / b);
  * }
- *
+ * 
  * Result<Double, String> result = divide(10.0, 0.0);
  * result
  *     .ifSuccess(value -> System.out.println("Result is: " + value))
  *     .ifError(error -> System.err.println("Error occurred: " + error));
- * </pre></blockquote>
+ * }</pre></blockquote>
  */
 public sealed abstract class Result<T, E> {
     private Result() {

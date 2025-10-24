@@ -16,7 +16,7 @@ import java.util.List;
  * It supports adding rows dynamically and can automatically calculate column widths
  * to create a well-aligned table. It also provides a helper to load data from a CSV file.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     new ConsoleTable()
  *         .addRow("ID", "Name", "Role")

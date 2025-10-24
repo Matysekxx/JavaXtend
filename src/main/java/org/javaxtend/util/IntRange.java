@@ -18,7 +18,7 @@ import java.util.stream.StreamSupport;
  * <p>
  * The range is inclusive of both the start and end values.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * // Simple iteration
  * for (int i : IntRange.of(1, 5)) { ... }

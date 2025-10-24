@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
  * {@link java.util.Scanner}, such as reading multiple values into arrays,
  * lists, or tuples in a single call.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     // Read from a string for testing
  *     String input = "10 20\nhello world";

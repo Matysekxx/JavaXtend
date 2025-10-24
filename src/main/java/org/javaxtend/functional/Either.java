@@ -9,7 +9,7 @@ import java.util.function.Function;
  * This is a general-purpose "sum type", in contrast to {@link Result} which has a specific
  * semantic meaning of success or failure.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * // A function that can return either an error code or a success message
  * public Either<Integer, String> processPayment() {

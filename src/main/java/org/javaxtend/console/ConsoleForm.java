@@ -14,7 +14,7 @@ import java.util.function.Predicate;
  * reads and validates the user's input using {@link ConsoleInput}, and returns the
  * collected data in a map.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     ConsoleForm form = new ConsoleForm()
  *         .addStringField("name", "Enter your full name:")

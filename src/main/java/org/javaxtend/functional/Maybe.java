@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * Represents an optional value: every {@code Maybe} is either {@code Just} and contains a value,
  * or {@code Nothing}, and does not. It is a robust, type-safe alternative to using {@code null}.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <p>
  * Instead of returning {@code null} and forcing null-checks, a method can return a {@code Maybe}.
  * This makes the possibility of an absent value explicit in the method's signature.

@@ -5,7 +5,7 @@ import org.javaxtend.functional.Result;
 /**
  * A utility class providing common, reusable {@link Validator} implementations.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * Validator<String> passwordValidator = Validators.minLength(8);
  *

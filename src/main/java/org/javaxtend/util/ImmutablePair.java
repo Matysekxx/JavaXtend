@@ -10,7 +10,7 @@ import java.util.function.Function;
  * This makes it inherently thread-safe and reliable for use as keys in maps
  * or elements in sets.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     // Create an immutable pair
  *     Pair&lt;String, Integer&gt; config = ImmutablePair.of("timeout", 5000);

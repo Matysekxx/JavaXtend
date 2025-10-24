@@ -17,7 +17,7 @@ public final class JXCollections {
     /**
      * Safely returns the first element of a collection.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * JXCollections.headOption(List.of("a", "b")); // Maybe.just("a")
      * JXCollections.headOption(List.of());      // Maybe.nothing()
@@ -40,7 +40,7 @@ public final class JXCollections {
      * Note: For collections without a defined order, the result is arbitrary.
      * This operation is efficient for {@link List} but requires a full iteration for other collection types.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * JXCollections.lastOption(List.of("a", "b", "c")); // Maybe.just("c")
      * JXCollections.lastOption(List.of());           // Maybe.nothing()
@@ -69,7 +69,7 @@ public final class JXCollections {
     /**
      * Safely returns the element at the specified index in a list.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * JXCollections.getOption(List.of("a", "b", "c"), 1);  // Maybe.just("b")
      * JXCollections.getOption(List.of("a", "b", "c"), 99); // Maybe.nothing()
@@ -90,7 +90,7 @@ public final class JXCollections {
     /**
      * Finds the first element in the collection that satisfies a predicate.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * JXCollections.find(List.of(1, 2, 3, 4), n -> n % 2 == 0); // Maybe.just(2)
      * }</pre></blockquote>
@@ -118,7 +118,7 @@ public final class JXCollections {
     /**
      * Returns a list containing all elements from the collection that satisfy a predicate.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var numbers = List.of(1, 2, 3, 4, 5);
      * JXCollections.findAll(numbers, n -> n % 2 == 0); // Returns: [2, 4]
@@ -144,7 +144,7 @@ public final class JXCollections {
      * Combines two collections into a list of pairs.
      * The resulting list will have the length of the shorter of the two input collections.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var names = List.of("Alice", "Bob");
      * var ages = List.of(30, 25, 40);
@@ -183,7 +183,7 @@ public final class JXCollections {
      * where the first list contains elements for which the predicate returned {@code true},
      * and the second list contains elements for which it returned {@code false}.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var numbers = List.of(1, 2, 3, 4, 5);
      * var parts = JXCollections.partition(numbers, n -> n % 2 == 0);
@@ -224,7 +224,7 @@ public final class JXCollections {
      * <p>
      * The order of elements in the resulting list is preserved from the original collection.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var users = List.of(new User(1, "A"), new User(2, "B"), new User(1, "C"));
      * JXCollections.distinctBy(users, User::id);
@@ -261,7 +261,7 @@ public final class JXCollections {
     /**
      * Splits this collection into a list of lists, each not exceeding the given {@code size}.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var numbers = List.of(1, 2, 3, 4, 5);
      * JXCollections.chunked(numbers, 2); // Returns: [[1, 2], [3, 4], [5]]
@@ -300,7 +300,7 @@ public final class JXCollections {
      * Returns a new list sorted according to the natural order of the keys
      * extracted by the given {@code keyExtractor}.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var users = List.of(new User("Bob", 30), new User("Alice", 25));
      * JXCollections.sortBy(users, User::age); // Returns users sorted by age
@@ -330,7 +330,7 @@ public final class JXCollections {
     /**
      * Returns a new list sorted according to the given {@link Comparator}.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var names = List.of("Chris", "Alice", "Bob");
      * JXCollections.sortBy(names, Comparator.comparing(String::length));
@@ -361,7 +361,7 @@ public final class JXCollections {
      * Returns a new list sorted according to the natural order of its elements.
      * The elements must implement the {@link Comparable} interface.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var numbers = List.of(3, 1, 2);
      * JXCollections.sortBy(numbers); // Returns: [1, 2, 3]
@@ -385,7 +385,7 @@ public final class JXCollections {
     /**
      * Returns the first element yielding the smallest value of the given function.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var users = List.of(new User("Bob", 30), new User("Alice", 25));
      * JXCollections.minBy(users, User::age); // Maybe.just(User("Alice", 25))
@@ -417,7 +417,7 @@ public final class JXCollections {
     /**
      * Returns the first element having the smallest value according to the given {@link Comparator}.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var names = List.of("Christopher", "Al", "Bob");
      * JXCollections.minBy(names, Comparator.comparing(String::length)); // Maybe.just("Al")
@@ -446,7 +446,7 @@ public final class JXCollections {
     /**
      * Returns the first element yielding the largest value of the given function.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var users = List.of(new User("Bob", 30), new User("Alice", 25));
      * JXCollections.maxBy(users, User::age); // Maybe.just(User("Bob", 30))
@@ -478,7 +478,7 @@ public final class JXCollections {
     /**
      * Returns the first element having the largest value according to the given {@link Comparator}.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * var names = List.of("Christopher", "Al", "Bob");
      * JXCollections.maxBy(names, Comparator.comparing(String::length)); // Maybe.just("Christopher")
@@ -507,7 +507,7 @@ public final class JXCollections {
     /**
      * Groups elements of the original collection by a key returned by the given {@code keyExtractor}.
      *
-     * <h3>Example of Usage:</h3>
+     * <h4>Example of Usage:</h4>
      * <blockquote><pre>{@code
      * record User(String name, String city) {}
      * var users = List.of(new User("Alice", "Prague"), new User("Bob", "London"));

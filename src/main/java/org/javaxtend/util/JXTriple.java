@@ -8,7 +8,7 @@ import java.util.function.Function;
 /**
  * A mutable, general-purpose implementation of the {@link Triple} interface.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * JXTriple<Integer, Integer, Integer> point = JXTriple.of(10, 20, 30);
  * point.setThird(35);

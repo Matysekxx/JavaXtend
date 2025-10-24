@@ -11,8 +11,8 @@ import java.util.Map;
  * It provides a fluent API to define a series of tasks, run them (with an optional warm-up phase),
  * and display the results in a formatted table.
  *
- * <h3>Example of Usage:</h3>
- * <blockquote><pre>{@code
+ * <H2>Example of Usage:</H2>
+ * <blockquote><pre>
  * new Benchmark("My Benchmark")
  *     .withWarmup(1_000_000)
  *     .addTask("Task A", () -> {
@@ -24,7 +24,7 @@ import java.util.Map;
  *     .withRuns(10) // Run each task 10 times
  *     .run()
  *     .print();
- * }</pre></blockquote>
+ * </pre></blockquote>
  */
 public class Benchmark {
 

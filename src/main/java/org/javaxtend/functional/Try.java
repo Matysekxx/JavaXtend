@@ -8,7 +8,7 @@ import java.util.function.Supplier;
  * Represents a computation that may either result in a value or throw an exception.
  * It is a functional way to handle exceptions, avoiding explicit try-catch blocks.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * // Wrap a potentially failing operation
  * Try<Integer> result = Try.of(() -> Integer.parseInt("123"));

@@ -8,7 +8,7 @@ import org.javaxtend.io.IO;
  * This is useful for indicating that a long-running task is in progress. The spinner
  * runs in a separate thread and can be started and stopped as needed.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>
  *     ConsoleSpinner spinner = new ConsoleSpinner("Processing data...", ConsoleSpinner.Animation.CLASSIC);
  *     spinner.start();

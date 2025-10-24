@@ -17,7 +17,7 @@ import java.util.Objects;
  * <p>
  * This implementation is not thread-safe. Null keys and values are not supported.
  *
- * <h3>Example of Usage:</h3>
+ * <h2>Example of Usage:</h2>
  * <blockquote><pre>{@code
  * BiMap<String, String> countryCodes = new BiMap<>();
  * countryCodes.put("US", "United States");
