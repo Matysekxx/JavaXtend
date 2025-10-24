@@ -8,8 +8,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Read is sufficient for checkout
-      packages: write
+      contents: read
+      packages: write # 'write' permission includes 'read' for packages
 
     steps:
       - name: Checkout repository
@@ -32,11 +32,8 @@ jobs:
           echo "version=${TAG#v}" >> $GITHUB_OUTPUT
 
       - name: Build and Publish to GitHub Packages
-        # Set the version as an environment variable for the step.
-        # Maven will automatically pick up env.MAVEN_OPTS.
-        run: mvn -B -DskipTests deploy
-        env:
-          MAVEN_OPTS: -Drevision=${{ steps.get_version.outputs.version }}
+        # Pass the version directly as a command-line argument to ensure it's used from the start.
+        run: mvn -B -DskipTests -Drevision=${{ steps.get_version.outputs.version }} deploy
 
       - name: Update GitHub Release with built assets
         uses: ncipollo/release-action@v1
