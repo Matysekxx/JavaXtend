@@ -27,10 +27,10 @@ jobs:
       - name: Debug check for secret
         run: |
           if [ -z "${{ secrets.JAVA_XTEND_PUBLISH }}" ]; then
-            echo "Secret GH_PACKAGES_TOKEN is NOT set!"
+            echo "Secret is NOT set!"
             exit 1
           else
-            echo "Secret GH_PACKAGES_TOKEN is set."
+            echo "Secret is set."
           fi
 
       - name: Compute version from tag
