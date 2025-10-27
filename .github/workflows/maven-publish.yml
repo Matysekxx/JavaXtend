@@ -22,11 +22,11 @@ jobs:
           java-version: '21'
           server-id: github
           server-username: ${{ github.actor }}
-          server-password: ${{ secrets.GH_PACKAGES_TOKEN }}
+          server-password: ${{ secrets.JAVA_XTEND_PUBLISH }}
 
       - name: Debug check for secret
         run: |
-          if [ -z "${{ secrets.GH_PACKAGES_TOKEN }}" ]; then
+          if [ -z "${{ secrets.JAVA_XTEND_PUBLISH }}" ]; then
             echo "Secret GH_PACKAGES_TOKEN is NOT set!"
             exit 1
           else
