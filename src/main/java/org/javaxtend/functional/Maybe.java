@@ -65,6 +65,19 @@ public sealed abstract class Maybe<T> {
         public Maybe<T> filter(Predicate<? super T> predicate) {
             return predicate.test(value) ? this : Maybe.nothing();
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Just<?> just = (Just<?>) o;
+            return value.equals(just.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value);
+        }
     }
 
     /**
@@ -86,6 +99,16 @@ public sealed abstract class Maybe<T> {
         @Override
         public Maybe<T> filter(Predicate<? super T> predicate) {
             return Maybe.nothing();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            return obj instanceof Nothing;
+        }
+
+        @Override
+        public int hashCode() {
+            return 1;
         }
     }
     

@@ -231,4 +231,19 @@ class TryTest {
 
         assertEquals("Exception: ArithmeticException", result);
     }
+
+    @Test
+    void toMaybe_onSuccess_returnsJust() {
+        Try<String> success = Try.success("data");
+        Maybe<String> maybe = success.toMaybe();
+        assertTrue(maybe.isJust());
+        assertEquals("data", maybe.unwrap());
+    }
+
+    @Test
+    void toMaybe_onFailure_returnsNothing() {
+        Try<String> failure = Try.failure(new Exception("error"));
+        Maybe<String> maybe = failure.toMaybe();
+        assertTrue(maybe.isNothing());
+    }
 }

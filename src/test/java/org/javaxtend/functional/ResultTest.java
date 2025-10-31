@@ -105,4 +105,46 @@ class ResultTest {
         String result = errorResult.fold(s -> "Success: " + s, e -> "Error: " + e);
         assertEquals("Error: 404", result);
     }
+
+    @Test
+    void ok_onSuccess_returnsJust() {
+        Result<String, Integer> success = Result.success("data");
+        Maybe<String> maybe = success.ok();
+        assertTrue(maybe.isJust());
+        assertEquals("data", maybe.unwrap());
+    }
+
+    @Test
+    void ok_onError_returnsNothing() {
+        Result<String, Integer> error = Result.error(404);
+        Maybe<String> maybe = error.ok();
+        assertTrue(maybe.isNothing());
+    }
+
+    @Test
+    void err_onSuccess_returnsNothing() {
+        Result<String, Integer> success = Result.success("data");
+        Maybe<Integer> maybe = success.err();
+        assertTrue(maybe.isNothing());
+    }
+
+    @Test
+    void err_onError_returnsJust() {
+        Result<String, Integer> error = Result.error(404);
+        Maybe<Integer> maybe = error.err();
+        assertTrue(maybe.isJust());
+        assertEquals(404, maybe.unwrap());
+    }
+
+    @Test
+    void transpose_convertsCorrectly() {
+        Result<Maybe<String>, Integer> successJust = Result.success(Maybe.just("value"));
+        assertEquals(Maybe.just(Result.success("value")), successJust.transpose());
+
+        Result<Maybe<String>, Integer> successNothing = Result.success(Maybe.nothing());
+        assertEquals(Maybe.nothing(), successNothing.transpose());
+
+        Result<Maybe<String>, Integer> errorResult = Result.error(404);
+        assertEquals(Maybe.just(Result.error(404)), errorResult.transpose());
+    }
 }

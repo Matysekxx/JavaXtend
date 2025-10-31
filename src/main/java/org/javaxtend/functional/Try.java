@@ -255,4 +255,13 @@ public abstract sealed class Try<T> {
         }
         return this;
     }
+
+    /**
+     * Converts from {@code Try<T>} to {@code Maybe<T>}, discarding the exception.
+     *
+     * @return {@code Maybe.just(value)} if this is a {@code Success}, otherwise {@code Maybe.nothing()}.
+     */
+    public final Maybe<T> toMaybe() {
+        return this.fold(Maybe::just, ex -> Maybe.nothing());
+    }
 }

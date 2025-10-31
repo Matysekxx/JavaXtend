@@ -261,4 +261,38 @@ public sealed abstract class Result<T, E> {
      */
     public abstract <R> Result<R, E> flatMap(Function<? super T, ? extends Result<R, E>> mapper);
 
+    /**
+     * Converts from {@code Result<T, E>} to {@code Maybe<T>}, discarding the error value.
+     *
+     * @return {@code Maybe.just(value)} if this is a {@code Success}, otherwise {@code Maybe.nothing()}.
+     */
+    public final Maybe<T> ok() {
+        return this.fold(Maybe::just, error -> Maybe.nothing());
+    }
+
+    /**
+     * Converts from {@code Result<T, E>} to {@code Maybe<E>}, discarding the success value.
+     *
+     * @return {@code Maybe.just(error)} if this is an {@code Error}, otherwise {@code Maybe.nothing()}.
+     */
+    public final Maybe<E> err() {
+        return this.fold(success -> Maybe.nothing(), Maybe::just);
+    }
+
+    /**
+     * Transposes a {@code Result} of a {@code Maybe} into a {@code Maybe} of a {@code Result}.
+     * <p>
+     * {@code Success(Maybe.Just(v))} will be mapped to {@code Maybe.Just(Success(v))}.<br>
+     * {@code Success(Maybe.Nothing)} will be mapped to {@code Maybe.Nothing}.<br>
+     * {@code Error(e)} will be mapped to {@code Maybe.Just(Error(e))}.
+     *
+     * @return The transposed structure.
+     */
+    @SuppressWarnings("unchecked")
+    public final <U> Maybe<Result<U, E>> transpose() {
+        return this.fold(
+            maybeValue -> ((Maybe<U>) maybeValue).map(Result::success),
+            errorValue -> Maybe.just(Result.error(errorValue))
+        );
+    }
 }
