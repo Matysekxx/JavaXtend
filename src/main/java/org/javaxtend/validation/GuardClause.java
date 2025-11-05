@@ -121,4 +121,16 @@ public class GuardClause {
             throw new IllegalArgumentException(parameterName + " cannot be null or empty.");
         }
     }
+
+    /**
+     * Throws an {@link IllegalArgumentException} if the given condition is false.
+     *
+     * @param condition The boolean condition to check.
+     * @param message   The exception message to use if the condition is false.
+     */
+    public void isFalse(boolean condition, String message) {
+        if (!condition) {
+            throw new IllegalArgumentException(message);
+        }
+    }
 }
