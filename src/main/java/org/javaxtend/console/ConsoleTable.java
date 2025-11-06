@@ -1,5 +1,6 @@
 package org.javaxtend.console;
 
+import org.javaxtend.data.DataFrame;
 import org.javaxtend.io.IO;
 
 import java.io.BufferedReader;
@@ -8,7 +9,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A utility for creating and printing formatted text-based tables in the console.
@@ -75,10 +78,48 @@ public class ConsoleTable {
     }
 
     /**
-     * Prints the formatted table to the console.
+     * Creates a ConsoleTable instance from a {@link org.javaxtend.data.DataFrame}.
+     *
+     * @param df The DataFrame to display.
+     * @return A new ConsoleTable instance populated with data from the DataFrame.
      */
-    public void print() {
-        if (rows.isEmpty()) return;
+    public static ConsoleTable fromDataFrame(DataFrame df) {
+        final ConsoleTable table = new ConsoleTable();
+        if (df == null || df.size() == 0) {
+            return table;
+        }
+
+        final List<String> header = new ArrayList<>();
+        header.add("Index");
+        header.addAll(df.columns());
+        table.addRow(header.toArray(new String[0]));
+
+        final int displayRows = Math.min(df.size(), 20);
+        for (int i = 0; i < displayRows; i++) {
+            final List<String> row = new ArrayList<>();
+            row.add(String.valueOf(df.index().get(i)));
+            final int finalI = i;
+            df.columns().forEach(colName -> row.add(String.valueOf(df.get(colName).getByPosition(finalI))));
+            table.addRow(row.toArray(new String[0]));
+        }
+
+        return table;
+    }
+
+    /**
+     * Returns the rows of the table.
+     * @return A list of string arrays, where each array represents a row.
+     */
+    public List<String[]> getRows() {
+        return new ArrayList<>(rows);
+    }
+
+    /**
+     * Renders the formatted table as a single string.
+     * @return The string representation of the table.
+     */
+    public String render() {
+        if (rows.isEmpty()) return "";
         final StringBuilder sb = new StringBuilder();
         final String border = buildBorder();
         sb.append(border).append("\n");
@@ -96,15 +137,21 @@ public class ConsoleTable {
         }
 
         sb.append(border);
-        IO.println(sb);
+        return sb.toString();
+    }
+
+    /**
+     * Prints the formatted table to the console.
+     * This is a convenience method that calls {@link #render()} and prints the result.
+     */
+    public void print() {
+        IO.println(render());
     }
 
     private String buildBorder() {
-        final StringBuilder sb = new StringBuilder("+");
-        for (int i = 0; i < colWidths.size(); i++) {
-            sb.append("-".repeat(colWidths.get(i) + 2)).append("+");
-        }
-        return sb.toString();
+        return colWidths.stream()
+                .map(colWidth -> "-".repeat(colWidth + 2) + "+")
+                .collect(Collectors.joining("", "+", ""));
     }
 
     private String padRight(String text, int visibleLength) {

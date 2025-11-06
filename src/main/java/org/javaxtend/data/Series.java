@@ -116,6 +116,29 @@ public class Series<T> implements TabularData<T, Series<T>> {
     }
 
     /**
+     * Casts the values of the Series to a specified type.
+     * <p>
+     * This method attempts to convert each value in the series to the target type.
+     * It's particularly useful after loading data from sources like CSV where all data might be strings.
+     * A {@link Function} must be provided to define the conversion logic.
+     *
+     * <h2>Example of Usage:</h2>
+     * <blockquote><pre>{@code
+     * Series<String> stringSeries = new Series<>(List.of("1", "2", "3"));
+     * Series<Integer> intSeries = stringSeries.asType(Integer::parseInt);
+     * }</pre></blockquote>
+     *
+     * @param typeConverter A function that converts an element of type {@code T} to type {@code R}.
+     * @param <R> The target type.
+     * @return A new Series with values of type {@code R}.
+     * @throws ClassCastException | NumberFormatException if the conversion fails for any value.
+     */
+    public <R> Series<R> asType(Function<T, R> typeConverter) {
+        Guard.against().isNull(typeConverter, "typeConverter");
+        return this.map(typeConverter);
+    }
+
+    /**
      * Filters the Series, returning a new Series containing only the elements that match the given predicate.
      *
      * @param predicate The predicate to apply to each value.

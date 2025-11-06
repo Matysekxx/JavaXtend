@@ -1,5 +1,6 @@
 package org.javaxtend.console;
 
+import org.javaxtend.data.DataFrame;
 import org.javaxtend.io.IO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,8 +13,11 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConsoleTableTest {
@@ -98,5 +102,22 @@ class ConsoleTableTest {
                         """;
 
         assertEquals(expected, outContent.toString().replaceAll("\\r\\n", "\n"));
+    }
+
+    @Test
+    @DisplayName("fromDataFrame should create a ConsoleTable correctly")
+    void testFromDataFrame() {
+        Map<String, List<?>> data = new LinkedHashMap<>();
+        data.put("Name", List.of("Test1", "Test2"));
+        data.put("Value", List.of(10, 20));
+        DataFrame df = DataFrame.of(data);
+
+        ConsoleTable table = ConsoleTable.fromDataFrame(df);
+        List<String[]> rows = table.getRows();
+
+        assertEquals(3, rows.size(), "Should have header + 2 data rows");
+        assertArrayEquals(new String[]{"Index", "Name", "Value"}, rows.get(0));
+        assertArrayEquals(new String[]{"0", "Test1", "10"}, rows.get(1));
+        assertArrayEquals(new String[]{"1", "Test2", "20"}, rows.get(2));
     }
 }
